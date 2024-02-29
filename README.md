@@ -1,6 +1,6 @@
-# ekzhang.github.io
+# prestonfu.github.io
 
-Source code for my [personal website](https://www.ekzhang.com/), hosted on
+Source code for my [personal website](https://www.prestonfu.com/), hosted on
 GitHub Pages.
 
 This website is powered by [SvelteKit](https://kit.svelte.dev/) and
@@ -10,3 +10,5 @@ This website is powered by [SvelteKit](https://kit.svelte.dev/) and
 $ npm install
 $ npm run dev
 ```
+
+This website's design is stolen from [Eric Zhang](https://www.ekzhang.com/).

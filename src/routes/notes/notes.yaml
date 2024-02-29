@@ -1,0 +1,13 @@
+- title: "CS 285: Deep Reinforcement Learning"
+  date: 2023-12-15
+  summary: >
+    Graduate course on reinforcement learning, control, and deep learning.
+    Imitation learning; model-free, model-based, and offline algorithms;
+    multitask learning and other miscellaneous.
+  link: /assets/pdf/CS285_Notes.pdf
+
+- title: "CS 182: Deep Neural Networks"
+  date: 2023-12-14
+  summary: >
+    2010s deep learning: Architectures, optimizers, language models, meta-learning.
+  link: /assets/pdf/CS182_Notes.pdf
