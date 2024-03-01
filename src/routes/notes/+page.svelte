@@ -10,8 +10,8 @@
   <div class="layout-md space-y-12">
     <p>
       I like to write out my notes in English; perhaps they are useful to you
-      too. You may notice that some still have TODOs on them; if you happen
-      to know how to resolve them, please don't hesitate to reach out!
+      too. You may notice that some still have TODOs on them; if you happen to
+      know how to resolve them, please don't hesitate to reach out!
     </p>
   </div>
   <section class="layout-md py-5">
@@ -21,8 +21,8 @@
   <section class="layout-md py-5">
     <h2 class="heading2">Artifacts</h2>
     <div class="mb-5">
-      Before undergrad, I considered studying pure math. Here are some
-      summaries of what I was reading at the time.
+      Before undergrad, I considered studying pure math. Here are some summaries
+      of what I was reading at the time.
     </div>
     <NotesList data={notes.artifacts} />
   </section>

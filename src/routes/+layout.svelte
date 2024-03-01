@@ -1,8 +1,8 @@
 <script lang="ts">
   import "@fontsource/newsreader/400-italic.css";
-  import '@fontsource/ibm-plex-sans';
+  import "@fontsource/ibm-plex-sans";
   import "../app.css";
-  import {math, display} from 'mathlifier';
+  import { math, display } from "mathlifier";
 
   import { browser, dev } from "$app/environment";
 

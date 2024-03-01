@@ -24,6 +24,7 @@ artifacts:
   - title: "Matrix Lie Groups"
     date: 2020-06-01
     summary: >
-      An introduction to Lie theory through matrix Lie groups: exponentiation, tangent
-      spaces, algebras, homomorphisms, and Baker–Campbell–Hausdorff formula.
+      An introduction to Lie theory through matrix Lie groups: exponentiation,
+      tangent spaces, algebras, homomorphisms, and Baker–Campbell–Hausdorff
+      formula.
     link: /assets/pdf/MatrixLieGroups.pdf
