@@ -23,15 +23,26 @@
   data-sveltekit-noscroll
   data-sveltekit-preload-code="eager"
 >
-  <h1 class="font-bold text-black text-2xl mb-6">
-    <a href="/">Preston Fu</a>
-    {#if pageTitle}
-      <span class="page-title">
-        <span class="text-neutral-400">—</span>
-        {pageTitle}
-      </span>
-    {/if}
-  </h1>
+  <a href="/" class="mb-8">
+    <div class="flex items-center">
+      <h1 class="font-bold text-black text-2xl">
+        Preston Fu
+        {#if pageTitle}
+          <span class="page-title">
+            <span class="text-neutral-400">—</span>
+            {pageTitle}
+          </span>
+        {/if}
+      </h1>
+      <!-- <div class="w-16 h-16 overflow-hidden rounded-full ml-4">
+        <img
+          src="/assets/images/palace-fine-arts.jpg"
+          alt="Me in San Francisco!"
+          class="w-full h-full object-cover"
+        />
+      </div> -->
+    </div>
+  </a>
   <nav>
     {#each links as link (link)}
       <a

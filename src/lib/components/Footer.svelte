@@ -1,18 +1,15 @@
-<footer class="layout-md mt-20 text-lg flex flex-col">
-  <!-- <div class="row">
-    <span>Twitter</span>
-    <hr />
-    <a class="link" href="https://twitter.com/ekzhang1">@ekzhang1</a>
-  </div> -->
+<footer class="layout-md text-lg mt-20 flex flex-col">
   <div class="row">
     <span>GitHub</span>
     <hr />
-    <a class="link" href="https://github.com/prestonfu">@prestonfu</a>
+    <a class="link" href="https://github.com/prestonfu" target="_blank"
+      >@prestonfu</a
+    >
   </div>
   <div class="row">
     <span>Email</span>
     <hr />
-    <a class="link" href="mailto:prestonfu@berkeley.edu">prestonfu@berkeley.edu</a>
+    prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu
   </div>
 </footer>
 

@@ -1,13 +1,29 @@
-- title: "CS 285: Deep Reinforcement Learning"
-  date: 2023-12-15
-  summary: >
-    Graduate course on reinforcement learning, control, and deep learning.
-    Imitation learning; model-free, model-based, and offline algorithms;
-    multitask learning and other miscellaneous.
-  link: /assets/pdf/CS285_Notes.pdf
+courses:
+  - title: "CS 285: Deep Reinforcement Learning"
+    date: 2023-12-15
+    summary: >
+      Graduate course on reinforcement learning, control, and deep learning.
+      Imitation learning; model-free, model-based, and offline algorithms;
+      multitask learning and other miscellaneous.
+    link: /assets/pdf/CS285_Notes.pdf
 
-- title: "CS 182: Deep Neural Networks"
-  date: 2023-12-14
-  summary: >
-    2010s deep learning: Architectures, optimizers, language models, meta-learning.
-  link: /assets/pdf/CS182_Notes.pdf
+  - title: "CS 182: Deep Neural Networks"
+    date: 2023-12-14
+    summary: >
+      2010s deep learning: Architectures, optimizers, language models,
+      meta-learning.
+    link: /assets/pdf/CS182_Notes.pdf
+
+artifacts:
+  - title: "Covering Spaces"
+    date: 2021-08-15
+    summary: >
+      The fundamental group, covering maps and topology, lifting properties of
+      paths and homotopies, and the universal cover.
+    link: /assets/pdf/CoveringSpaces.pdf
+  - title: "Matrix Lie Groups"
+    date: 2020-06-01
+    summary: >
+      An introduction to Lie theory through matrix Lie groups: exponentiation, tangent
+      spaces, algebras, homomorphisms, and Baker–Campbell–Hausdorff formula.
+    link: /assets/pdf/MatrixLieGroups.pdf

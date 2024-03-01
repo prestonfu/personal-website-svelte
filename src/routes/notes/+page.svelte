@@ -4,19 +4,26 @@
   import notes from "./notes.yaml";
 </script>
 
-<Seo
-  title="Preston Fu – Writing"
-  description="Past writing: academic papers, presentations, notes, tutorials, and technical blog posts."
-/>
+<Seo title="Preston Fu – Notes" description="Technical writing" />
 
-<div class="layout-md space-y-12">
-  <p>
-    I like to write out my notes in English for future reference; perhaps they 
-    are useful to you too. You may notice that the notes still have TODOs on them;
-    if you happen to know how to resolve them, please let me know.
-  </p>
+<div class="text-lg">
+  <div class="layout-md space-y-12">
+    <p>
+      I like to write out my notes in English; perhaps they are useful to you
+      too. You may notice that some still have TODOs on them; if you happen
+      to know how to resolve them, please don't hesitate to reach out!
+    </p>
+  </div>
+  <section class="layout-md py-5">
+    <h2 class="heading2">Course Notes</h2>
+    <NotesList data={notes.courses} />
+  </section>
+  <section class="layout-md py-5">
+    <h2 class="heading2">Artifacts</h2>
+    <div class="mb-5">
+      Before undergrad, I considered studying pure math. Here are some
+      summaries of what I was reading at the time.
+    </div>
+    <NotesList data={notes.artifacts} />
+  </section>
 </div>
-<section class="layout-md py-5">
-  <!-- <h2 class="heading2">Notes and Tutorials</h2> -->
-  <NotesList data={notes} />
-</section>
