@@ -1,17 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link
       rel="icon"
-      type="image/svg+xml"
-      sizes="any"
-      href="/assets/images/palace-fine-arts.jpg"
+      href="%sveltekit.assets%/assets/images/palace-fine-arts.jpg"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     %sveltekit.head%
   </head>
-  <body>
-    <div>%sveltekit.body%</div>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>

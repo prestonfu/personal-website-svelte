@@ -1,37 +1,37 @@
 {
-  "version": 3,
-  "routes": [
-    {
-      "src": "/notes",
-      "dest": "/notes/"
-    },
-    {
-      "src": "/notes/",
-      "status": 308,
-      "headers": {
-        "Location": "/notes"
-      }
-    },
-    {
-      "src": "/_app/immutable/.+",
-      "headers": {
-        "cache-control": "public, immutable, max-age=31536000"
-      }
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/.*",
-      "dest": "/fn"
-    }
-  ],
-  "overrides": {
-    "index.html": {
-      "path": ""
-    },
-    "notes.html": {
-      "path": "notes"
-    }
-  }
+	"version": 3,
+	"routes": [
+		{
+			"src": "/notes",
+			"dest": "/notes/"
+		},
+		{
+			"src": "/notes/",
+			"status": 308,
+			"headers": {
+				"Location": "/notes"
+			}
+		},
+		{
+			"src": "/_app/immutable/.+",
+			"headers": {
+				"cache-control": "public, immutable, max-age=31536000"
+			}
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "/.*",
+			"dest": "/fn"
+		}
+	],
+	"overrides": {
+		"index.html": {
+			"path": ""
+		},
+		"notes.html": {
+			"path": "notes"
+		}
+	}
 }
