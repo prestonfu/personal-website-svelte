@@ -10,8 +10,8 @@ courses:
   - title: "CS 182: Deep Neural Networks"
     date: 2023-12-14
     summary: >
-      2010s deep learning: Architectures, optimizers, language models,
-      meta-learning.
+      2010s deep learning: Classical vision and sequence models, transformer-based
+      architectures, self-supervised learning, meta-learning.
     link: /assets/pdf/CS182_Notes.pdf
 
 artifacts:

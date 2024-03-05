@@ -38,8 +38,7 @@ const css = {
 };
 const Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `<footer class="layout-md text-lg mt-20 flex flex-col" data-svelte-h="svelte-1s0i8lg"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span> <hr class="svelte-1t3hv3r"> <a class="link svelte-1t3hv3r" href="https://github.com/prestonfu" target="_blank">@prestonfu</a></div> <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span> <hr class="svelte-1t3hv3r">
-    prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu</div> </footer>`;
+  return `<footer class="layout-md text-lg mt-20 flex flex-col" data-svelte-h="svelte-1sit4sl"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span> <hr class="svelte-1t3hv3r"> <a class="link svelte-1t3hv3r" href="https://github.com/prestonfu" target="_blank">@prestonfu</a></div> <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span> <hr class="svelte-1t3hv3r"> <p class="svelte-1t3hv3r">prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu</p></div> </footer>`;
 });
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { data } = $$props;

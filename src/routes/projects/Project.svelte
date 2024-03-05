@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Star } from "lucide-svelte";
+  import Star from "lucide-svelte/icons/star";
 
   import Markdown from "$lib/components/Markdown.svelte";
   import { formatTime } from "$lib/utils";

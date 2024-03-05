@@ -34,7 +34,7 @@ body {
 }
 
 ::selection {
-  @apply bg-neutral-200 dark:bg-neutral-600;
+  @apply bg-emerald-100 dark:bg-emerald-600;
 }
 
 .dark {

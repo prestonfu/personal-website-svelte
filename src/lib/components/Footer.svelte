@@ -9,7 +9,7 @@
   <div class="row">
     <span>Email</span>
     <hr />
-    prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu
+    <p>prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu</p>
   </div>
 </footer>
 

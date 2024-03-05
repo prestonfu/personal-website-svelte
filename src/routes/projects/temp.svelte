@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
-
   import { onMount } from "svelte";
-  import { CalendarDays, Star } from "lucide-svelte";
+  import CalendarDays from "lucide-svelte/icons/calendar-days";
+  import Star from "lucide-svelte/icons/star";
 
   import Seo from "$lib/components/Seo.svelte";
   import Project from "./Project.svelte";

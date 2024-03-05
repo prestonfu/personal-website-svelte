@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { ArrowUpRight } from "lucide-svelte";
-
+  import ArrowUpRight from "lucide-svelte/icons/arrow-up-right";
   import Seo from "$lib/components/Seo.svelte";
 
   //   const featuredProjects = [

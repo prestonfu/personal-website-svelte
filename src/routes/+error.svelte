@@ -1,7 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-
-  import { Bug } from "lucide-svelte";
+  import Bug from "lucide-svelte/icons/bug";
 </script>
 
 <div class="layout-md">
