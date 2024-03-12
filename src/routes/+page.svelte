@@ -60,12 +60,12 @@
 <div class="layout-md text-lg space-y-12">
   <div class="space-y-5">
     <p>
-      I'm a second-year electrical engineering and computer science major UC
-      Berkeley. I am a researcher in the
+      I'm a second-year electrical engineering and computer science major at UC
+      Berkeley. I do research at the
       <a class="link" href="https://bair.berkeley.edu/" target="_blank">
         Berkeley Artificial Intelligence Research Lab
       </a>
-      and am advised by
+      , where I'm advised by
       <a
         class="link"
         href="https://people.eecs.berkeley.edu/~svlevine/"
