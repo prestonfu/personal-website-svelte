@@ -1,4 +1,5 @@
 import { c as create_ssr_component, b as subscribe, e as escape, d as each, f as add_attribute, v as validate_component } from "../../chunks/ssr.js";
+import { inject } from "@vercel/analytics";
 import { p as page } from "../../chunks/stores.js";
 const css$1 = {
   code: "nav.svelte-bgdsr9.svelte-bgdsr9.svelte-bgdsr9{display:flex;align-items:flex-start;justify-content:flex-end\n}nav.svelte-bgdsr9>.svelte-bgdsr9:not([hidden])~.svelte-bgdsr9:not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))\n}nav.svelte-bgdsr9.svelte-bgdsr9.svelte-bgdsr9{padding-top:0.125rem;padding-bottom:0.125rem;font-size:1.125rem;line-height:1.75rem;--tw-text-opacity:1;color:rgb(115 115 115 / var(--tw-text-opacity))\n}.page-title.svelte-bgdsr9.svelte-bgdsr9.svelte-bgdsr9{font-weight:300\n}@media(max-width: 580px){.page-title.svelte-bgdsr9.svelte-bgdsr9.svelte-bgdsr9{display:block;font-size:1.25rem;line-height:1.75rem\n    }.page-title.svelte-bgdsr9 .svelte-bgdsr9.svelte-bgdsr9:first-child{display:none\n    }}@media(max-width: 420px){nav.svelte-bgdsr9.svelte-bgdsr9.svelte-bgdsr9{flex-direction:column;align-items:flex-end\n    }nav.svelte-bgdsr9>.svelte-bgdsr9:not([hidden])~.svelte-bgdsr9:not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0px * var(--tw-space-x-reverse));margin-left:calc(0px * calc(1 - var(--tw-space-x-reverse)))\n    }}",
@@ -41,6 +42,7 @@ const Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<footer class="layout-md text-lg mt-20 flex flex-col" data-svelte-h="svelte-1sit4sl"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span> <hr class="svelte-1t3hv3r"> <a class="link svelte-1t3hv3r" href="https://github.com/prestonfu" target="_blank">@prestonfu</a></div> <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span> <hr class="svelte-1t3hv3r"> <p class="svelte-1t3hv3r">prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu</p></div> </footer>`;
 });
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  inject({ mode: "production" });
   let { data } = $$props;
   if ($$props.data === void 0 && $$bindings.data && data !== void 0)
     $$bindings.data(data);
