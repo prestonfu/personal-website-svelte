@@ -9,9 +9,9 @@
 <div class="text-lg">
   <div class="layout-md space-y-12">
     <p>
-      I like to write out my notes in English; perhaps they are useful to you
-      too. You may notice that some still have TODOs on them; if you happen to
-      know how to resolve them, please don't hesitate to reach out!
+      Writeups for a wide variety of things. Some contain TODOs; if you happen to
+      know how to resolve them, or observe that anything looks wrong, please don't 
+      hesitate to reach out!
     </p>
   </div>
   <section class="layout-md py-5">

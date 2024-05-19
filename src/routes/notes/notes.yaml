@@ -1,4 +1,12 @@
 courses:
+  - title: "CS 184: Computer Graphics and Imaging"
+    date: 2024-05-19
+    summary: >
+      All things graphics: rasterization, filtering and sampling, geometry, 
+      materials, light transport and image synthesis, cameras, physical
+      simulation, virtual reality, among other things.
+    link: /assets/pdf/CS184_Notes.pdf
+
   - title: "CS 285: Deep Reinforcement Learning"
     date: 2023-12-15
     summary: >
