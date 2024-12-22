@@ -34,13 +34,6 @@
           </span>
         {/if}
       </h1>
-      <!-- <div class="w-16 h-16 overflow-hidden rounded-full ml-4">
-        <img
-          src="/assets/images/palace-fine-arts.jpg"
-          alt="Me in San Francisco!"
-          class="w-full h-full object-cover"
-        />
-      </div> -->
     </div>
   </a>
   <nav>

@@ -1,4 +1,4 @@
-# prestonfu.github.io
+# prestonfu.com
 
 Source code for my [personal website](https://www.prestonfu.com/), hosted on
 GitHub Pages.

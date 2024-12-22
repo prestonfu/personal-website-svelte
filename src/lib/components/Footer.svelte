@@ -7,6 +7,20 @@
     >
   </div>
   <div class="row">
+    <span>Linkedin</span>
+    <hr />
+    <a class="link whitespace-nowrap" href="https://www.linkedin.com/in/preston-fu/" target="_blank"
+      >@preston-fu</a
+    >
+  </div>
+  <div class="row">
+    <span>Scholar</span>
+    <hr />
+    <a class="link whitespace-nowrap" href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=VjtRFvEAAAAJ" target="_blank"
+      >@VjtRFvEAAAAJ</a
+    >
+  </div>
+  <div class="row">
     <span>Email</span>
     <hr />
     <p>prestonfu&lt;at&gt;berkeley&lt;dot&gt;edu</p>

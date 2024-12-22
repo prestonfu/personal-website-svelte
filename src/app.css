@@ -29,7 +29,8 @@ html {
 }
 
 body {
-  @apply /* antialiased */ py-12 sm:py-24 md:py-32 text-neutral-700;
+  @apply /* antialiased */
+  py-12 sm:py-24 md:py-32 text-neutral-700;
   font-family: "IBM Plex Sans", sans-serif;
 }
 
@@ -39,4 +40,11 @@ body {
 
 .dark {
   color-scheme: dark;
+}
+
+@media screen and (min-width: 960px) {
+  html {
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+  }
 }

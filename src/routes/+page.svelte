@@ -58,47 +58,58 @@
 </p> -->
 
 <div class="layout-md text-lg space-y-12">
-  <div class="space-y-5">
-    <p>
-      I'm a second-year electrical engineering and computer science major at UC
-      Berkeley. I do research at the
-      <a class="link" href="https://bair.berkeley.edu/" target="_blank">
-        Berkeley Artificial Intelligence Research Lab
-      </a>
-      , where I'm advised by
-      <a
-        class="link"
-        href="https://people.eecs.berkeley.edu/~svlevine/"
-        target="_blank"
-      >
-        Sergey Levine</a
-      >. Previously, I have been advised by
-      <a
-        class="link"
-        href="https://people.eecs.berkeley.edu/~klein/"
-        target="_blank"
-      >
-        Dan Klein</a
-      >,
-      <a
-        class="link"
-        href="https://people.eecs.berkeley.edu/~trevor/"
-        target="_blank">Trevor Darrell</a
-      >, and
-      <a
-        class="link"
-        href="https://bayen.berkeley.edu/alex-bayen"
-        target="_blank">Alexandre Bayen</a
-      >.
-    </p>
-
-    <p>
-      My technical interests include reinforcement learning, computer vision,
-      probability, and algorithms.
-    </p>
+  <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-6"
+  >
+    <div class="flex-1">
+      <p>
+        I'm a third-year electrical engineering and computer science undergrad
+        at UC Berkeley. I am also a researcher at
+        <a class="link" href="https://bair.berkeley.edu/" target="_blank">
+          Berkeley Artificial Intelligence Research</a
+        >, where I am advised by
+        <a
+          class="link"
+          href="https://people.eecs.berkeley.edu/~svlevine/"
+          target="_blank"
+        >
+          Sergey Levine</a
+        >. Previously, I have been advised by
+        <a
+          class="link"
+          href="https://people.eecs.berkeley.edu/~klein/"
+          target="_blank">Dan Klein</a
+        >,
+        <a
+          class="link"
+          href="https://people.eecs.berkeley.edu/~trevor/"
+          target="_blank">Trevor Darrell</a
+        >, and
+        <a
+          class="link"
+          href="https://bayen.berkeley.edu/alex-bayen"
+          target="_blank">Alexandre Bayen</a
+        >.
+      </p>
+      <div class="mt-4" />
+      <p>
+        My technical interests include reinforcement learning, generative
+        models, probability, and algorithms.
+      </p>
+    </div>
+    <div
+      class="mt-6 md:mt-0 flex-shrink-0 flex justify-center md:justify-start"
+    >
+      <img
+        src="/assets/images/big-game.jpg"
+        alt="Go bears!"
+        class="w-60 h-60 md:w-36 md:h-36 md:rounded-full object-cover"
+      />
+    </div>
   </div>
+</div>
 
-  <!-- <div class="leading-snug space-y-4">
+<!-- <div class="leading-snug space-y-4">
     <p class="pb-2">Notable open-source work:</p>
 
     {#each featuredProjects as project}
@@ -117,13 +128,12 @@
     {/each}
   </div> -->
 
-  <!-- <div class="space-y-5">
+<!-- <div class="space-y-5">
     <img
       alt="Self-portrait photograph of Preston Fu at his desk"
       src="/assets/images/profile4.jpg"
     />
   </div> -->
-</div>
 
 <style lang="postcss">
   .g {

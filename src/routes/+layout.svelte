@@ -26,7 +26,7 @@
 
 <svelte:head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  {#if !dev}
+  <!-- {#if !dev}
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"
@@ -39,7 +39,7 @@
       gtag("js", new Date());
       gtag("config", "UA-156644599-1");
     </script>
-  {/if}
+  {/if} -->
 </svelte:head>
 
 <Header />
