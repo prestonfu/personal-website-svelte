@@ -4,13 +4,5 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   darkMode: "class",
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: [...defaultTheme.fontFamily.sans],
-        serif: ["Newsreader", ...defaultTheme.fontFamily.serif],
-      },
-    },
-  },
   plugins: [],
 };
