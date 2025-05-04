@@ -16,7 +16,6 @@ image_after: forecasting_after.png
 
 [arXiv](https://arxiv.org/abs/2408.12036) / [Poster](../assets/pdf/forecasting-poster.pdf)
 
-We build empirical models of the data-compute Pareto frontier, optimal resource
-allocation across data and compute, and hyperparameter dependencies for value-based
-RL. From small-scale runs, we can extrapolate towards higher data, compute, and
-performance.
+We propose a framework of reasoning-and-acting (ReAct) agents that can retrieve
+information and run numerical simulations, for competitive forecasting platforms.
+We achieve performance on par with human competitors.

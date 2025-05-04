@@ -27,7 +27,7 @@
           <ArrowUpRight size={18} class="inline text-neutral-400" />
         </div>
         <div class="sm:ml-auto mb-0.5 text-neutral-500">
-          {formatTime("%B %-d, %Y", item.date)}
+          {formatTime("%B %Y", item.date)}
         </div>
       </div>
       <div class="text-lg leading-snug font-serif">
