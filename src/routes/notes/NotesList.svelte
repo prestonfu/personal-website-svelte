@@ -30,7 +30,7 @@
           {formatTime("%B %-d, %Y", item.date)}
         </div>
       </div>
-      <div class="text-lg leading-snug font-serif italic">
+      <div class="text-lg leading-snug font-serif">
         {item.summary}
       </div>
     </a>

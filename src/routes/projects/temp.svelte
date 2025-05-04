@@ -10,7 +10,7 @@
   const projects = import.meta.glob("../../projects/*.md", {
     eager: true,
   }) as any;
-  const images = import.meta.glob("../../projects/*.{png,jpg,svg}", {
+  const images = import.meta.glob("../../projects/*.{png,jpg,svg,gif}", {
     eager: true,
   }) as any;
 
@@ -86,9 +86,8 @@
       >let me know</a
     >!
   </p>
-</section>
 
-<div class="bg-gray-900 text-neutral-200 dark">
+<!-- <div class="bg-gray-900 text-neutral-200 dark">
   <section class="layout-md py-12">
     <h2 class="heading2 text-white">Table of Contents</h2>
     <ul class="sm:columns-2">
@@ -99,9 +98,9 @@
       {/each}
     </ul>
   </section>
-</div>
+</div> -->
 
-<div class="bg-neutral-50 border-b border-neutral-200 py-4">
+<!-- <div class="bg-neutral-50 border-b border-neutral-200 py-4">
   <div class="flex justify-center space-x-6">
     <button
       class:active={sortOrder === "date"}
@@ -116,15 +115,17 @@
       <Star size={18} strokeWidth={1.8} class="mr-1.5" /> by Stars
     </button>
   </div>
-</div>
+</div> -->
 
 {#each sortOrder === "date" ? projectsByDate : projectsByStars as id (id)}
-  <section class="py-10" id={trimName(id)}>
-    <div class="mx-auto max-w-[1152px] px-4 sm:px-6">
+  <section class="py-2" id={trimName(id)}>
+    <!-- <div class="mx-auto max-w-[1152px] px-4 sm:px-6"> -->
       <Project data={projects[id]} {images} {stars} />
-    </div>
+    <!-- </div> -->
   </section>
 {/each}
+
+</section>
 
 <style lang="postcss">
   button {

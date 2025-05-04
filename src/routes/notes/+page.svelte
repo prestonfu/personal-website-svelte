@@ -9,7 +9,7 @@
 <div class="text-lg">
   <div class="layout-md space-y-12">
     <p>
-      Writeups for a wide variety of things. Some contain TODOs; if you happen to
+      Writeups for a variety of things. Some contain TODOs; if you happen to
       know how to resolve them, or observe that anything looks wrong, please don't 
       hesitate to reach out!
     </p>

@@ -44,6 +44,66 @@
   //     },
   //   ];
   //
+
+  import { page } from "$app/stores";
+  import { onMount } from "svelte";
+  import CalendarDays from "lucide-svelte/icons/calendar-days";
+  import Star from "lucide-svelte/icons/star";
+
+  import Project from "./projects/Project.svelte";
+
+  const projects = import.meta.glob("../projects/*.md", {
+    eager: true,
+  }) as any;
+  const images = import.meta.glob("../projects/*.{png,jpg,svg,gif}", {
+    eager: true,
+  }) as any;
+
+  function trimName(id: string) {
+    return id.match(/\.\.\/projects\/(.*)\.md$/)?.[1];
+  }
+
+  $: projectsByDate = Object.keys(projects).sort(
+    (a, b) => projects[b].date - projects[a].date
+  );
+  $: projectsByTitle = Object.keys(projects).sort((a, b) => {
+    const titleA = projects[a].title.toLowerCase();
+    const titleB = projects[b].title.toLowerCase();
+    return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+  });
+
+  onMount(() => {
+    // Hack: Fix the scroll position after the page loads, especially for mobile browsers.
+    const selected = $page.url.hash.slice(1);
+    if (selected) {
+      setTimeout(() => {
+        if ($page.url.hash.slice(1) === selected) {
+          document.getElementById(selected)?.scrollIntoView();
+        }
+      }, 500);
+    }
+  });
+
+  let stars: Record<string, number> | null = null;
+  onMount(async () => {
+    const resp = await fetch(
+      "https://api.github.com/users/ekzhang/repos?per_page=100"
+    );
+    const repos = await resp.json();
+    stars = {};
+    for (const obj of repos) {
+      stars[obj.full_name] = obj.stargazers_count;
+    }
+  });
+
+  $: projectsByStars = [...projectsByTitle].sort((a, b) => {
+    const starsA = stars?.[projects[a].repo] ?? 0;
+    const starsB = stars?.[projects[b].repo] ?? 0;
+    return starsB - starsA;
+  });
+
+  let sortOrder: "date" | "stars" = "date";
+
 </script>
 
 <Seo title="Preston Fu" description="Undergrad at UC Berkeley" />
@@ -63,18 +123,17 @@
   >
     <div class="flex-1">
       <p>
-        I'm a third-year electrical engineering and computer science undergrad
-        at UC Berkeley. I am also a researcher at
+        Hi! I'm Preston, a third-year undergrad at UC Berkeley. I am also a researcher at
         <a class="link" href="https://bair.berkeley.edu/" target="_blank">
           Berkeley Artificial Intelligence Research</a
-        >, where I am advised by
+        > advised by
         <a
           class="link"
           href="https://people.eecs.berkeley.edu/~svlevine/"
           target="_blank"
         >
           Sergey Levine</a
-        >. Previously, I have been advised by
+        >. Previously, I've been advised by
         <a
           class="link"
           href="https://people.eecs.berkeley.edu/~klein/"
@@ -93,8 +152,8 @@
       </p>
       <div class="mt-4" />
       <p>
-        My technical interests include reinforcement learning, generative
-        models, probability, and algorithms.
+        I'm interested in building intelligent systems that can efficiently
+        learn general skills.
       </p>
     </div>
     <div
@@ -103,9 +162,40 @@
       <img
         src="/assets/images/big-game.jpg"
         alt="Go bears!"
-        class="w-60 h-60 md:w-36 md:h-36 md:rounded-full object-cover"
+        class="w-80 h-80 md:w-48 md:h-48 md:rounded-full object-cover"
       />
     </div>
+  </div>
+
+  <div>
+    <h2 class="heading2 text-xl mb-2">News</h2>
+    <ul class="list-disc ml-4">
+      <li>
+        <b>May 2025</b>: I'm an
+        <a
+          class="link"
+          href="https://eecs.berkeley.edu/resources/undergrads/accel/"
+          target="_blank">Accel Scholar</a
+        >!
+      </li>
+      <li>
+        <b>May 2025</b>: New
+        <a class="link" href="https://arxiv.org/abs/2502.04327" target="_blank"
+          >paper</a
+        > on scaling laws for value-based RL is accepted to ICML!
+      </li>
+    </ul>
+  </div>
+
+  <div class="space-y-2">
+  <h2 class="heading2 text-xl space-y-5">Research</h2>
+  {#each sortOrder === "date" ? projectsByDate : projectsByStars as id (id)}
+    <section id={trimName(id)}>
+      <!-- <div class="mx-auto max-w-[1152px] px-4 sm:px-6"> -->
+        <Project data={projects[id]} {images} {stars} />
+      <!-- </div> -->
+    </section>
+  {/each}
   </div>
 </div>
 
