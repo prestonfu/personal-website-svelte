@@ -55,9 +55,9 @@
   const projects = import.meta.glob("../projects/*.md", {
     eager: true,
   }) as any;
-  const images = import.meta.glob("../projects/*.{png,jpg,svg,gif}", {
-    eager: true,
-  }) as any;
+  // const images = import.meta.glob("../projects/*.{png,jpg,svg,gif}", {
+  //   eager: true,
+  // }) as any;
 
   function trimName(id: string) {
     return id.match(/\.\.\/projects\/(.*)\.md$/)?.[1];
@@ -171,6 +171,12 @@
     <h2 class="heading2 text-xl mb-2">News</h2>
     <ul class="list-disc ml-4">
       <li>
+        <b>Sep 2025</b>: New
+        <a class="link" href="https://arxiv.org/abs/2508.14881" target="_blank"
+          >paper</a
+        > on compute-optimal scaling for value-based RL is out!
+      </li>
+      <li>
         <b>May 2025</b>: I'm an
         <a
           class="link"
@@ -192,7 +198,7 @@
   {#each sortOrder === "date" ? projectsByDate : projectsByStars as id (id)}
     <section id={trimName(id)}>
       <!-- <div class="mx-auto max-w-[1152px] px-4 sm:px-6"> -->
-        <Project data={projects[id]} {images} {stars} />
+        <Project data={projects[id]} {stars} />
       <!-- </div> -->
     </section>
   {/each}

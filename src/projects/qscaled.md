@@ -2,23 +2,23 @@
 title: Value-Based Deep RL Scales Predictably
 link: https://arxiv.org/abs/2502.04327
 date: 2025-05-03
-highlight: true
-image_before: qscaled_before.png
-image_after: qscaled_after.gif
+highlight: false
+image_before: /assets/images/qscaled_before.png
+image_after: /assets/images/qscaled_after.gif
 ---
 
-[Oleh Rybkin](https://people.eecs.berkeley.edu/~oleh/), 
-[Michal Nauman](https://scholar.google.com/citations?user=GnEVRtQAAAAJ&hl=en), 
-**Preston Fu**, 
-[Charlie Snell](https://sea-snell.github.io/), 
-[Pieter Abbeel](https://people.eecs.berkeley.edu/~pabbeel/), 
-[Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/), 
+[Oleh Rybkin](https://people.eecs.berkeley.edu/~oleh/),
+[Michal Nauman](https://scholar.google.com/citations?user=GnEVRtQAAAAJ&hl=en),
+**Preston Fu**,
+[Charlie Snell](https://sea-snell.github.io/),
+[Pieter Abbeel](https://people.eecs.berkeley.edu/~pabbeel/),
+[Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/),
 [Aviral Kumar](https://aviralkumar2907.github.io/)
 
-*International Conference on Machine Learning (ICML)*, 2025 \
-*ICLR Robot Learning Workshop*, 2025 (**oral presentation**)
+_International Conference on Machine Learning (ICML)_, 2025 \
+_ICLR Robot Learning Workshop_, 2025 (**oral presentation**)
 
-[arXiv](https://arxiv.org/abs/2502.04327) / [Poster](https://people.eecs.berkeley.edu/~oleh/images/qscaled_poster.pdf) / [Thread](https://x.com/_oleh/status/1889016893140516880)
+[arXiv](https://arxiv.org/abs/2502.04327) / [Poster](/assets/pdf/utd_scaling_poster_icml.pdf) / [Thread](https://x.com/_oleh/status/1889016893140516880)
 
 We build empirical models of the data-compute Pareto frontier, optimal resource
 allocation across data and compute, and hyperparameter dependencies for value-based

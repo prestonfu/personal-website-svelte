@@ -8,13 +8,13 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        sm: ['1rem', { lineHeight: '1.5rem' }],
-        xl: ['1.3rem', { lineHeight: '2rem' }],
+        sm: ["1rem", { lineHeight: "1.4rem" }],
+        xl: ["1.3rem", { lineHeight: "2rem" }],
       },
       colors: {
-        mint: '#f2fcf8',
-        darkmint: '#ebfff5'
-      }
+        mint: "#f2fcf8",
+        darkmint: "#ebfff5",
+      },
     },
   },
 };
