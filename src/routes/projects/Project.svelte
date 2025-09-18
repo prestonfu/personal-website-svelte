@@ -74,7 +74,7 @@
   role="group"
   class={data.highlight
     ? "block -mx-4 px-4 py-4 hover:bg-emerald-50 bg-mint transition-colors"
-    : "block -mx-4 px-4 py-4 transition-colors"}
+    : "block -mx-4 px-4 py-2 transition-colors"}
   on:mouseenter={() => {
     hovered = true;
     if (!is_video || !video_el) return;
@@ -114,9 +114,9 @@
         <Markdown source={data.content} />
       </div>
     </div>
-    <div class="col-span-3 md:col-span-1 md:ml-8 lg:ml-12">
+    <div class="col-span-3 md:col-span-1 md:ml-4 lg:ml-8">
       <!-- Wrapper reserves layout via the IMG; VIDEO overlays and fades in on hover -->
-      <div class="relative w-full max-w-80 mx-auto">
+      <div class="relative w-full max-w-60 mx-auto">
         <img
           src="{image_path}"
           alt="{data.title} preview image"

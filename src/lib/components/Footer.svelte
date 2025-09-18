@@ -17,7 +17,7 @@
     <span>Scholar</span>
     <hr />
     <a class="link whitespace-nowrap" href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=VjtRFvEAAAAJ" target="_blank"
-      >@VjtRFvEAAAAJ</a
+      >click</a
     >
   </div>
   <div class="row">

@@ -13,7 +13,7 @@
   export let data: Writing[];
 </script>
 
-<div class="grid gap-y-4">
+<div class="grid gap-y-1">
   {#each data as item}
     <a
       href={item.link}

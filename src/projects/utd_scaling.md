@@ -16,11 +16,11 @@ image_after: /assets/images/qscaled_after.gif
 [Aviral Kumar](https://aviralkumar2907.github.io/)
 
 _International Conference on Machine Learning (ICML)_, 2025 \
-_ICLR Robot Learning Workshop_, 2025 (**oral presentation**)
+_ICLR Robot Learning Workshop_, 2025 (**oral**)
 
 [arXiv](https://arxiv.org/abs/2502.04327) / [Poster](/assets/pdf/utd_scaling_poster_icml.pdf) / [Thread](https://x.com/_oleh/status/1889016893140516880)
 
-We build empirical models of the data-compute Pareto frontier, optimal resource
+<!-- We build empirical models of the data-compute Pareto frontier, optimal resource
 allocation across data and compute, and hyperparameter dependencies for value-based
 RL. From small-scale runs, we can extrapolate towards higher data, compute, and
-performance.
+performance. -->

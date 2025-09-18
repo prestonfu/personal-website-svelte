@@ -37,7 +37,7 @@
   }
 
   .layout-md {
-    @apply max-w-[900px] mx-auto px-4 sm:px-6;
+    @apply max-w-[700px] mx-auto px-4 sm:px-6;
   }
 
   .heading2 {

@@ -64,7 +64,7 @@
   }
 
   $: projectsByDate = Object.keys(projects).sort(
-    (a, b) => projects[b].date - projects[a].date
+    (a, b) => projects[b].date - projects[a].date,
   );
   $: projectsByTitle = Object.keys(projects).sort((a, b) => {
     const titleA = projects[a].title.toLowerCase();
@@ -87,7 +87,7 @@
   let stars: Record<string, number> | null = null;
   onMount(async () => {
     const resp = await fetch(
-      "https://api.github.com/users/ekzhang/repos?per_page=100"
+      "https://api.github.com/users/ekzhang/repos?per_page=100",
     );
     const repos = await resp.json();
     stars = {};
@@ -103,7 +103,6 @@
   });
 
   let sortOrder: "date" | "stars" = "date";
-
 </script>
 
 <Seo title="Preston Fu" description="Undergrad at UC Berkeley" />
@@ -117,64 +116,55 @@
   designer<span class="g">.</span>
 </p> -->
 
-<div class="layout-md text-lg space-y-12">
-  <div
-    class="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-6"
+<div class="layout-md text-lg space-y-8">
+  <!-- <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-8"
   >
-    <div class="flex-1">
-      <p>
-        Hi! I'm Preston, a third-year undergrad at UC Berkeley. I am also a researcher at
-        <a class="link" href="https://bair.berkeley.edu/" target="_blank">
-          Berkeley Artificial Intelligence Research</a
-        > advised by
-        <a
-          class="link"
-          href="https://people.eecs.berkeley.edu/~svlevine/"
-          target="_blank"
-        >
-          Sergey Levine</a
-        >. Previously, I've been advised by
-        <a
-          class="link"
-          href="https://people.eecs.berkeley.edu/~klein/"
-          target="_blank">Dan Klein</a
-        >,
-        <a
-          class="link"
-          href="https://people.eecs.berkeley.edu/~trevor/"
-          target="_blank">Trevor Darrell</a
-        >, and
-        <a
-          class="link"
-          href="https://bayen.berkeley.edu/alex-bayen"
-          target="_blank">Alexandre Bayen</a
-        >.
-      </p>
-      <div class="mt-4" />
-      <p>
-        I'm interested in building intelligent systems that can efficiently
-        learn general skills.
-      </p>
-    </div>
-    <div
+    <div class="flex-1"> -->
+  <p>
+    I'm an undergrad at UC Berkeley advised by
+    <a
+      class="link"
+      href="https://people.eecs.berkeley.edu/~svlevine/"
+      target="_blank"
+    >
+      Sergey Levine</a
+    >
+    and
+    <a class="link" href="https://aviralkumar2907.github.io/" target="_blank">
+      Aviral Kumar</a
+    >. I'm interested in building systems that can efficiently learn 
+    general skills.
+  </p>
+  <!-- </div> -->
+  <!-- <div
       class="mt-6 md:mt-0 flex-shrink-0 flex justify-center md:justify-start"
     >
       <img
         src="/assets/images/big-game.jpg"
         alt="Go bears!"
-        class="w-80 h-80 md:w-48 md:h-48 md:rounded-full object-cover"
+        class="w-60 md:w-44 md:h-44 md:rounded-full object-cover"
       />
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
 
   <div>
     <h2 class="heading2 text-xl mb-2">News</h2>
     <ul class="list-disc ml-4">
       <li>
         <b>Sep 2025</b>: New
+        <a class="link" href="https://value-scaling.github.io/" target="_blank"
+          >blog post</a
+        > summarizing our
+        <a class="link" href="#model_scaling">two</a>
+        <a class="link" href="#utd_scaling">papers</a>
+        on scaling laws for RL with value functions and discussing open problems.
+      </li>
+      <li>
+        <b>Sep 2025</b>: New
         <a class="link" href="https://arxiv.org/abs/2508.14881" target="_blank"
           >paper</a
-        > on compute-optimal scaling for value-based RL is out!
+        > on compute-optimal scaling for value-based RL is accepted to NeurIPS!
       </li>
       <li>
         <b>May 2025</b>: I'm an
@@ -194,14 +184,14 @@
   </div>
 
   <div class="space-y-2">
-  <h2 class="heading2 text-xl space-y-5">Research</h2>
-  {#each sortOrder === "date" ? projectsByDate : projectsByStars as id (id)}
-    <section id={trimName(id)}>
-      <!-- <div class="mx-auto max-w-[1152px] px-4 sm:px-6"> -->
+    <h2 class="heading2 text-xl space-y-5">Research</h2>
+    {#each sortOrder === "date" ? projectsByDate : projectsByStars as id (id)}
+      <section id={trimName(id)}>
+        <!-- <div class="mx-auto max-w-[1152px] px-4 sm:px-6"> -->
         <Project data={projects[id]} {stars} />
-      <!-- </div> -->
-    </section>
-  {/each}
+        <!-- </div> -->
+      </section>
+    {/each}
   </div>
 </div>
 

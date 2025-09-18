@@ -4,26 +4,26 @@
   import notes from "./notes.yaml";
 </script>
 
-<Seo title="Preston Fu – Notes" description="Technical writing" />
+<Seo title="Preston Fu – Notes" description="Writing" />
 
 <div class="text-lg">
-  <div class="layout-md space-y-12">
+  <div class="layout-md space-y-8">
     <p>
-      Writeups for a variety of things. Some contain TODOs; if you happen to
-      know how to resolve them, or observe that anything looks wrong, please don't 
+      Writing not directly related to my research. May contain TODOs; please don't
       hesitate to reach out!
     </p>
+    <section>
+      <h2 class="heading2">Scribing</h2>
+      <p class="mb-2">Some of my favorite courses at Berkeley!</p>
+      <NotesList data={notes.courses} />
+    </section>
+    <section>
+      <h2 class="heading2">Long ago</h2>
+      <p class="mb-2">
+        Before undergrad, I considered studying pure math. Here are some
+        summaries of what I was reading at the time.
+      </p>
+      <NotesList data={notes.artifacts} />
+    </section>
   </div>
-  <section class="layout-md py-5">
-    <h2 class="heading2">Course Notes</h2>
-    <NotesList data={notes.courses} />
-  </section>
-  <section class="layout-md py-5">
-    <h2 class="heading2">Artifacts</h2>
-    <div class="mb-5">
-      Before undergrad, I considered studying pure math. Here are some summaries
-      of what I was reading at the time.
-    </div>
-    <NotesList data={notes.artifacts} />
-  </section>
 </div>

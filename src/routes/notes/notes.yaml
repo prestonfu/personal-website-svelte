@@ -4,7 +4,8 @@ courses:
     summary: >
       All things graphics: rasterization, filtering and sampling, geometry, 
       materials, light transport and image synthesis, cameras, physical
-      simulation, virtual reality, among other things.
+      simulation, virtual reality, etc. (I was also a 
+      teaching assistant for this course!)
     link: /assets/pdf/CS184_Notes.pdf
 
   - title: "CS 285: Deep Reinforcement Learning"
@@ -12,15 +13,15 @@ courses:
     summary: >
       Graduate course on reinforcement learning, control, and deep learning.
       Imitation learning; model-free, model-based, and offline algorithms;
-      multitask learning and other miscellaneous.
+      multitask learning; next steps.
     link: /assets/pdf/CS285_Notes.pdf
 
-  - title: "CS 182: Deep Neural Networks"
-    date: 2023-12-14
-    summary: >
-      2010s deep learning: Classical vision and sequence models, transformer-based
-      architectures, self-supervised learning, meta-learning.
-    link: /assets/pdf/CS182_Notes.pdf
+  # - title: "CS 182: Deep Neural Networks"
+  #   date: 2023-12-14
+  #   summary: >
+  #     2010s deep learning: Classical vision and sequence models, transformer-based
+  #     architectures, self-supervised learning, meta-learning.
+  #   link: /assets/pdf/CS182_Notes.pdf
 
 artifacts:
   - title: "Covering Spaces"
