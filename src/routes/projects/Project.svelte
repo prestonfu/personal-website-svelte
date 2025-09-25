@@ -96,8 +96,8 @@
     }
   }}
 >
-  <div class="grid grid-cols-3">
-    <div class="col-span-3 md:col-span-2">
+  <div class="grid grid-cols-4">
+    <div class="col-span-4 md:col-span-3">
       <!-- Title -->
       <h3 class="text-black text-lg font-semibold mb-2">
         <span class="mr-1">
@@ -105,16 +105,16 @@
             >{data.title}</a
           >
         </span>
-        <small class="whitespace-nowrap text-neutral-500 text-base font-normal">
+        <!-- <small class="whitespace-nowrap text-neutral-500 text-base font-normal">
           {formatTime("%b %Y", data.date)}
-        </small>
+        </small> -->
       </h3>
       <!-- <p class="text-lg font-light mb-3">{data.lead}</p> -->
       <div class="text-sm">
         <Markdown source={data.content} />
       </div>
     </div>
-    <div class="col-span-3 md:col-span-1 md:ml-4 lg:ml-8">
+    <div class="col-span-4 md:col-span-1 md:ml-4 lg:ml-4">
       <!-- Wrapper reserves layout via the IMG; VIDEO overlays and fades in on hover -->
       <div class="relative w-full max-w-60 mx-auto">
         <img
