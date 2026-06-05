@@ -105,7 +105,7 @@
   let sortOrder: "date" | "stars" = "date";
 </script>
 
-<Seo title="Preston Fu" description="Undergrad at UC Berkeley" />
+<Seo title="Preston Fu" description="PhD student at UC Berkeley" />
 
 <!-- <p
   class="layout-md text-black text-xl leading-tight font-light mb-16"
@@ -121,21 +121,33 @@
     class="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-8"
   >
     <div class="flex-1"> -->
-  <p>
-    I'm an undergrad at UC Berkeley advised by
-    <a
-      class="link"
-      href="https://people.eecs.berkeley.edu/~svlevine/"
-      target="_blank"
-    >
-      Sergey Levine</a
-    >
-    and
-    <a class="link" href="https://aviralkumar2907.github.io/" target="_blank">
-      Aviral Kumar</a
-    >. I'm interested in building systems that can efficiently learn 
-    general skills.
-  </p>
+  <div class="space-y-3">
+    <p>
+      I'm an incoming PhD student at the University of Washington advised by
+      <a
+        class="link"
+        href="https://abhishekunique.github.io/"
+        target="_blank"
+      >
+        Abhishek Gupta</a
+      >. My research is graciously supported by the <a class="link" href="https://www.nsfgrfp.org/" target="_blank">NSF Graduate Research Fellowship</a>.
+      I'm interested in building efficiently adaptable systems via large-scale RL.
+    </p>
+    <p>
+      Previously, I was an undergrad at UC Berkeley advised by
+      <a
+        class="link"
+        href="https://people.eecs.berkeley.edu/~svlevine/"
+        target="_blank"
+      >
+        Sergey Levine</a
+      >
+      and
+      <a class="link" href="https://aviralkumar2907.github.io/" target="_blank">
+        Aviral Kumar</a
+      >.
+    </p>
+  </div>
   <!-- </div> -->
   <!-- <div
       class="mt-6 md:mt-0 flex-shrink-0 flex justify-center md:justify-start"
@@ -148,7 +160,7 @@
     </div> -->
   <!-- </div> -->
 
-  <div>
+  <!-- <div>
     <h2 class="heading2 text-xl mb-2">News</h2>
     <ul class="list-disc ml-4">
       <li>
@@ -181,7 +193,7 @@
         > on scaling laws for value-based RL is accepted to ICML!
       </li>
     </ul>
-  </div>
+  </div> -->
 
   <div class="space-y-2">
     <h2 class="heading2 text-xl space-y-5">Research</h2>
