@@ -63,10 +63,13 @@
     return id.match(/\.\.\/projects\/(.*)\.md$/)?.[1];
   }
 
-  $: projectsByDate = Object.keys(projects).sort(
+  $: enabledProjects = Object.keys(projects).filter(
+    (id) => projects[id].enable !== false,
+  );
+  $: projectsByDate = enabledProjects.sort(
     (a, b) => projects[b].date - projects[a].date,
   );
-  $: projectsByTitle = Object.keys(projects).sort((a, b) => {
+  $: projectsByTitle = [...enabledProjects].sort((a, b) => {
     const titleA = projects[a].title.toLowerCase();
     const titleB = projects[b].title.toLowerCase();
     return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
@@ -123,15 +126,15 @@
     <div class="flex-1"> -->
   <div class="space-y-3">
     <p>
-      I'm an incoming PhD student at the University of Washington advised by
+      Hi! I'm a PhD student at the University of Washington advised by
       <a
         class="link"
         href="https://abhishekunique.github.io/"
         target="_blank"
       >
         Abhishek Gupta</a
-      >. My research is graciously supported by the <a class="link" href="https://www.nsfgrfp.org/" target="_blank">NSF Graduate Research Fellowship</a>.
-      I'm interested in building efficiently adaptable systems via large-scale RL.
+      >, where I am supported by the <a class="link" href="https://www.nsfgrfp.org/" target="_blank">NSF Graduate Research Fellowship</a>.
+      I'm interested in building reliable and efficiently adaptable systems via large-scale RL.
     </p>
     <p>
       Previously, I was an undergrad at UC Berkeley advised by
@@ -163,15 +166,6 @@
   <!-- <div>
     <h2 class="heading2 text-xl mb-2">News</h2>
     <ul class="list-disc ml-4">
-      <li>
-        <b>Sep 2025</b>: New
-        <a class="link" href="https://value-scaling.github.io/" target="_blank"
-          >blog post</a
-        > summarizing our
-        <a class="link" href="#model_scaling">two</a>
-        <a class="link" href="#utd_scaling">papers</a>
-        on scaling laws for RL with value functions and discussing open problems.
-      </li>
       <li>
         <b>Sep 2025</b>: New
         <a class="link" href="https://arxiv.org/abs/2508.14881" target="_blank"

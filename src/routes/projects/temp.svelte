@@ -10,10 +10,6 @@
   const projects = import.meta.glob("../../projects/*.md", {
     eager: true,
   }) as any;
-  const images = import.meta.glob("../../projects/*.{png,jpg,svg,gif}", {
-    eager: true,
-  }) as any;
-
   function trimName(id: string) {
     return id.match(/\.\.\/projects\/(.*)\.md$/)?.[1];
   }
@@ -120,7 +116,7 @@
 {#each sortOrder === "date" ? projectsByDate : projectsByStars as id (id)}
   <section class="py-2" id={trimName(id)}>
     <!-- <div class="mx-auto max-w-[1152px] px-4 sm:px-6"> -->
-      <Project data={projects[id]} {images} {stars} />
+      <Project data={projects[id]} {stars} />
     <!-- </div> -->
   </section>
 {/each}

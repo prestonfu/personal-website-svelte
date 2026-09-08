@@ -8,6 +8,7 @@
     date: Date;
     summary: string;
     link: string;
+    newTab?: boolean;
   };
 
   export let data: Writing[];
@@ -18,13 +19,15 @@
     <a
       href={item.link}
       class="block -mx-3 px-3 py-2 hover:bg-neutral-100 transition-colors"
-      target="_blank"
-      rel="noreferrer"
+      target={item.newTab === false ? undefined : "_blank"}
+      rel={item.newTab === false ? undefined : "noreferrer"}
     >
       <div class="flex flex-col sm:flex-row sm:items-end mb-1.5">
         <div class="text-lg text-black">
           {item.title}
-          <ArrowUpRight size={18} class="inline text-neutral-400" />
+          {#if item.newTab !== false}
+            <ArrowUpRight size={18} class="inline text-neutral-400" />
+          {/if}
         </div>
         <div class="sm:ml-auto mb-0.5 text-neutral-500">
           {formatTime("%B %Y", item.date)}

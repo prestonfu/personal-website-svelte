@@ -116,7 +116,7 @@
     </div>
     <div class="col-span-4 md:col-span-1 md:ml-4 lg:ml-4">
       <!-- Wrapper reserves layout via the IMG; VIDEO overlays and fades in on hover -->
-      <div class="relative w-full max-w-60 mx-auto">
+      <div class="relative w-full max-w-36 mx-auto">
         <img
           src="{image_path}"
           alt="{data.title} preview image"

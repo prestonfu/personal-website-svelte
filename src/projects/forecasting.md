@@ -2,6 +2,7 @@
 title: Reasoning and Tools for Human-Level Forecasting
 link: https://arxiv.org/abs/2408.12036
 date: 2024-08-21
+enable: false
 highlight: false
 image_before: /assets/images/forecasting.png
 image_after: /assets/images/forecasting.png

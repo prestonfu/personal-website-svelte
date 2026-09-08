@@ -1,3 +1,19 @@
+research:
+  - title: "Progressive Point Matching"
+    date: 2026-09-01
+    summary: >
+      Assigning partial credit to improve reinforcement learning for
+      long-horizon reasoning tasks.
+    link: /notes/ppm/
+    newTab: false
+
+  - title: "Scaling Laws for Value-Based RL"
+    date: 2025-09-05
+    summary: >
+      With the right design decisions, value-based reinforcement learning
+      admits predictable scaling.
+    link: https://value-scaling.github.io/
+
 courses:
   - title: "CS 184: Computer Graphics and Imaging"
     date: 2024-05-19

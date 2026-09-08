@@ -9,9 +9,12 @@
 <div class="text-lg">
   <div class="layout-md space-y-8">
     <p>
-      Writing not directly related to my research. May contain TODOs; please don't
-      hesitate to reach out!
+      Writing and scribbles of varied quality. Feel free to reach out with any comments!
     </p>
+    <section>
+      <h2 class="heading2">Research Blogs</h2>
+      <NotesList data={notes.research} />
+    </section>
     <section>
       <h2 class="heading2">Scribing</h2>
       <p class="mb-2">Some of my favorite courses at Berkeley!</p>
@@ -20,8 +23,7 @@
     <section>
       <h2 class="heading2">Long ago</h2>
       <p class="mb-2">
-        Before undergrad, I considered studying pure math. Here are some
-        summaries of what I was reading at the time.
+        Before undergrad, I considered studying pure math. Some things I was reading:
       </p>
       <NotesList data={notes.artifacts} />
     </section>

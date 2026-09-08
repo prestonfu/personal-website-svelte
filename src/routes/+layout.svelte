@@ -2,14 +2,13 @@
   import "../app.css";
   import { math, display } from "mathlifier";
   
-  import { browser, dev } from "$app/environment";
+  import { dev } from "$app/environment";
+  import { page } from "$app/stores";
 
   import { inject } from '@vercel/analytics';
   import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
   inject({ mode: dev ? 'development' : 'production' });
   injectSpeedInsights();
-
-  import { fly } from "svelte/transition";
 
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
@@ -17,9 +16,10 @@
 
   export let data: LayoutData;
 
-  const isMobile = browser && /Android|iPhone/i.test(navigator.userAgent);
-  const reducedMotion =
-    browser && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $: isNoteDetail =
+    $page.status < 400 &&
+    data.pathname.startsWith("/notes/") && data.pathname !== "/notes/";
+
 </script>
 
 <svelte:head>
@@ -40,25 +40,14 @@
   {/if} -->
 </svelte:head>
 
-<Header />
-
-{#if isMobile || reducedMotion}
-  <!--
-    Disable page transitions on mobile due to a browser engine bug.
-    Also disable them for reduced-motion users.
-  -->
-  <main>
-    <slot />
-  </main>
-{:else}
-  {#key data.pathname}
-    <main
-      in:fly={{ x: -10, duration: 350, delay: 350 }}
-      out:fly={{ y: 5, duration: 350 }}
-    >
-      <slot />
-    </main>
-  {/key}
+{#if !isNoteDetail}
+  <Header />
 {/if}
 
-<Footer />
+<main>
+  <slot />
+</main>
+
+{#if !isNoteDetail}
+  <Footer />
+{/if}

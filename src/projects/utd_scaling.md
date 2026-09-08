@@ -20,8 +20,7 @@ _ICLR Robot Learning Workshop_, 2025 (**oral**)
 
 [arXiv](https://arxiv.org/abs/2502.04327) /
 [Poster](/assets/pdf/utd_scaling_poster_icml.pdf) /
-[Thread](https://x.com/_oleh/status/1889016893140516880) /
-[Blog](https://value-scaling.github.io/)
+[Thread](https://x.com/_oleh/status/1889016893140516880)
 
 <!-- We build empirical models of the data-compute Pareto frontier, optimal resource
 allocation across data and compute, and hyperparameter dependencies for value-based

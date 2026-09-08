@@ -23,7 +23,7 @@
   <div class="row">
     <span>Email</span>
     <hr />
-    <p>prestonfu&nbsp;[at]&nbsp;berkeley&nbsp;[dot]&nbsp;edu</p>
+    <p>prestonf&nbsp;[at]&nbsp;cs&nbsp;[dot]&nbsp;washington&nbsp;[dot]&nbsp;edu</p>
   </div>
 </footer>
 
