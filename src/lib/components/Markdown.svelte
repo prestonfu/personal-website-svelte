@@ -2,6 +2,7 @@
   import { marked } from "marked";
 
   export let source: string;
+  export let plainFirstParagraphLinks = false;
 
   marked.use({
     renderer: {
@@ -19,7 +20,7 @@
   $: html = marked.parse(source);
 </script>
 
-<div class="md-output">
+<div class:plain-first-paragraph-links={plainFirstParagraphLinks} class="md-output">
   {@html html}
 </div>
 
@@ -34,5 +35,14 @@
 
   .md-output :global(code) {
     @apply text-[95%];
+  }
+
+  .md-output.plain-first-paragraph-links :global(p:first-child a) {
+    text-decoration-line: none;
+  }
+
+  .md-output.plain-first-paragraph-links :global(p:first-child a:hover) {
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
   }
 </style>

@@ -86,6 +86,54 @@
   export let source: string;
 
   const cardMarker = "<!-- ppm-resource-card -->";
+  const mobileFootnoteGap = 8;
+  const mobileFootnotePadding = 16;
+  const footnoteViewportPadding = 16;
+
+  function getFootnote(target: EventTarget | null) {
+    return target instanceof Element
+      ? target.closest<HTMLElement>(".footnote")
+      : null;
+  }
+
+  function positionMobileFootnote(event: Event) {
+    const footnote = getFootnote(event.target);
+    const popover = footnote?.querySelector<HTMLElement>(".footnote-popover");
+
+    if (!footnote || !popover) return;
+
+    footnote.style.setProperty("--footnote-popover-offset", "0px");
+
+    if (!window.matchMedia("(max-width: 520px)").matches) {
+      const rect = popover.getBoundingClientRect();
+      const rightLimit = window.innerWidth - footnoteViewportPadding;
+      let offset = 0;
+
+      if (rect.left < footnoteViewportPadding) {
+        offset = footnoteViewportPadding - rect.left;
+      } else if (rect.right > rightLimit) {
+        offset = rightLimit - rect.right;
+      }
+
+      footnote.style.setProperty("--footnote-popover-offset", `${offset}px`);
+      return;
+    }
+
+    const markerRect = footnote.getBoundingClientRect();
+    const popoverRect = popover.getBoundingClientRect();
+    let top = markerRect.top - popoverRect.height - mobileFootnoteGap;
+
+    if (top < mobileFootnotePadding) {
+      top = markerRect.bottom + mobileFootnoteGap;
+    }
+
+    top = Math.min(
+      Math.max(top, mobileFootnotePadding),
+      window.innerHeight - mobileFootnotePadding - popoverRect.height,
+    );
+
+    footnote.style.setProperty("--footnote-popover-top", `${top}px`);
+  }
 
   $: markerIndex = source.indexOf(cardMarker);
   $: beforeCard =
@@ -98,7 +146,12 @@
   $: afterCardHtml = parseArticleMarkdown(afterCard);
 </script>
 
-<div class="article-markdown">
+<div
+  class="article-markdown"
+  on:pointerover={positionMobileFootnote}
+  on:pointerdown={positionMobileFootnote}
+  on:focusin={positionMobileFootnote}
+>
   {@html beforeCardHtml}
   {#if markerIndex !== -1}
     <PaperCard />
@@ -172,6 +225,8 @@
 
   .article-markdown :global(.footnote) {
     @apply relative inline-block align-baseline text-[0.65em] transition-colors;
+    --footnote-popover-top: 1rem;
+    --footnote-popover-offset: 0px;
     color: #30b265;
     cursor: default;
     font-family: inherit;
@@ -195,9 +250,18 @@
   }
 
   .article-markdown :global(.footnote-popover) {
-    @apply invisible absolute bottom-[calc(100%+0.55rem)] left-1/2 z-30 max-w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 rounded border border-neutral-200 bg-white px-3 py-2 text-left text-[0.84rem] font-normal leading-5 text-neutral-700 opacity-0 transition;
+    @apply invisible absolute bottom-[calc(100%+0.55rem)] left-1/2 z-30 max-w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 rounded border border-neutral-200 bg-white px-3 py-2 text-left text-base font-normal leading-6 text-neutral-700 opacity-0 transition;
+    --tw-translate-x: calc(-50% + var(--footnote-popover-offset));
     width: max-content;
     white-space: normal;
+  }
+
+  @media (max-width: 820px) {
+    .article-markdown :global(.footnote-popover) {
+      @apply fixed left-1/2 w-[min(360px,calc(100vw-2rem))] max-w-none -translate-x-1/2;
+      top: var(--footnote-popover-top);
+      bottom: auto;
+    }
   }
 
   .article-markdown :global(.footnote:hover .footnote-popover),

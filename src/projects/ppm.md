@@ -1,10 +1,10 @@
 ---
 title: Long-Horizon Language Model RL via Progressive Point Matching
-link: /assets/pdf/ppm.pdf
+link: https://arxiv.org/abs/2609.07303
 date: 2026-09-01
-highlight: true
-image_before: /notes/ppm/method_small.png
-image_after: /notes/ppm/method_small.png
+highlight: false
+image_before: /assets/images/ppm.png
+image_after: /assets/images/ppm.png
 ---
 
 **Preston Fu**\*,
@@ -15,6 +15,7 @@ image_after: /notes/ppm/method_small.png
 
 _Preprint_, 2026
 
-[Paper](/assets/pdf/ppm.pdf) /
-[Blog](/notes/ppm/) /
-[Code](https://github.com/prestonfu/ppm)
+[arXiv](https://arxiv.org/abs/2609.07303)
+[blog](/notes/ppm/)
+[code](https://github.com/prestonfu/ppm)
+[twitter](https://x.com/preston_fu/status/2097390949047664774)

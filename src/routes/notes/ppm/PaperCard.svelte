@@ -8,7 +8,7 @@
 
   <div class="min-w-0">
     <a
-      href="/assets/pdf/ppm.pdf"
+      href="https://arxiv.org/abs/2609.07303"
       class="paper-title"
       target="_blank"
       rel="noreferrer"
@@ -45,7 +45,7 @@
     </div>
     <div class="flex flex-wrap gap-2">
       <a
-        href="/assets/pdf/ppm.pdf"
+        href="https://arxiv.org/abs/2609.07303"
         class="resource-button"
         target="_blank"
         rel="noreferrer"

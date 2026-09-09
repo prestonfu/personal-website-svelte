@@ -96,27 +96,10 @@
     }
   }}
 >
-  <div class="grid grid-cols-4">
-    <div class="col-span-4 md:col-span-3">
-      <!-- Title -->
-      <h3 class="text-black text-lg font-semibold mb-2">
-        <span class="mr-1">
-          <a class="link-no-underline" href={data.link} target="_blank"
-            >{data.title}</a
-          >
-        </span>
-        <!-- <small class="whitespace-nowrap text-neutral-500 text-base font-normal">
-          {formatTime("%b %Y", data.date)}
-        </small> -->
-      </h3>
-      <!-- <p class="text-lg font-light mb-3">{data.lead}</p> -->
-      <div class="text-sm">
-        <Markdown source={data.content} />
-      </div>
-    </div>
-    <div class="col-span-4 md:col-span-1 md:ml-4 lg:ml-4">
+  <div class="project-row">
+    <div class="project-media">
       <!-- Wrapper reserves layout via the IMG; VIDEO overlays and fades in on hover -->
-      <div class="relative w-full max-w-36 mx-auto">
+      <div class="project-image">
         <img
           src="{image_path}"
           alt="{data.title} preview image"
@@ -141,10 +124,59 @@
         {/if}
       </div>
     </div>
+    <div class="project-copy">
+      <!-- Title -->
+      <h3 class="text-black text-lg font-semibold mb-2">
+        <span class="mr-1">
+          <a class="link-no-underline" href={data.link} target="_blank"
+            >{data.title}</a
+          >
+        </span>
+        <!-- <small class="whitespace-nowrap text-neutral-500 text-base font-normal">
+          {formatTime("%b %Y", data.date)}
+        </small> -->
+      </h3>
+      <!-- <p class="text-lg font-light mb-3">{data.lead}</p> -->
+      <div class="text-sm">
+        <Markdown source={data.content} plainFirstParagraphLinks />
+      </div>
+    </div>
   </div>
 </div>
 
 <style lang="postcss">
+  .project-row {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 0.75rem;
+  }
+
+  .project-copy {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+
+  .project-media {
+    flex: 0 0 auto;
+    width: clamp(3.5rem, 17vw, 6.25rem);
+    margin-left: 0;
+  }
+
+  .project-image {
+    position: relative;
+    width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    .project-row {
+      column-gap: 1.25rem;
+    }
+
+    .project-media {
+      width: 8.75rem;
+    }
+  }
+
   .pill {
     @apply flex items-center text-sm font-medium;
     @apply px-1.5 py-[1px] mr-1.5 mb-2 bg-neutral-100 rounded-full;

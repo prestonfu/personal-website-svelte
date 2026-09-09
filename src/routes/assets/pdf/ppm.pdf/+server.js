@@ -1,5 +1,4 @@
-const ppmRedirectUrl =
-  "https://scholar.google.com/citations?hl=en&user=zBUwaGkAAAAJ&view_op=list_works&sortby=pubdate";
+const ppmRedirectUrl = "https://arxiv.org/abs/2609.07303";
 
 export function GET() {
   return Response.redirect(ppmRedirectUrl, 302);

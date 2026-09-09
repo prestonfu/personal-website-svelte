@@ -126,7 +126,7 @@
     <div class="flex-1"> -->
   <div class="space-y-3">
     <p>
-      Hi! I'm a PhD student at the University of Washington advised by
+      I'm a PhD student at the University of Washington advised by
       <a
         class="link"
         href="https://abhishekunique.github.io/"

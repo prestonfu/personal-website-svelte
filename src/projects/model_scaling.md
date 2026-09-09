@@ -17,8 +17,9 @@ image_after: /assets/images/model_scaling_3d.mp4
 
 _NeurIPS_, 2025
 
-[arXiv](https://arxiv.org/abs/2508.14881) /
-[Thread](https://x.com/preston_fu/status/1962920781387882841)
+[arXiv](https://arxiv.org/abs/2508.14881)
+[blog](https://value-scaling.github.io/)
+[twitter](https://x.com/preston_fu/status/1962920781387882841)
 
 <!-- We analyze the interplay of model size, UTD, and batch size. For
 small models, reducing the training error by increasing the batch size worsens
