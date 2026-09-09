@@ -73,8 +73,8 @@
 <div
   role="group"
   class={data.highlight
-    ? "block -mx-4 px-4 py-4 hover:bg-emerald-50 bg-mint transition-colors"
-    : "block -mx-4 px-4 py-2 transition-colors"}
+    ? "block -mx-4 px-4 py-3 hover:bg-emerald-50 bg-mint transition-colors"
+    : "block -mx-4 px-4 py-1 transition-colors"}
   on:mouseenter={() => {
     hovered = true;
     if (!is_video || !video_el) return;
@@ -137,8 +137,13 @@
         </small> -->
       </h3>
       <!-- <p class="text-lg font-light mb-3">{data.lead}</p> -->
-      <div class="text-sm">
-        <Markdown source={data.content} plainFirstParagraphLinks />
+      <div class="project-meta text-sm">
+        <Markdown
+          source={data.content}
+          plainFirstParagraphLinks
+          buttonLastParagraphLinks
+          openLinksInNewTab
+        />
       </div>
     </div>
   </div>
@@ -154,6 +159,19 @@
   .project-copy {
     min-width: 0;
     flex: 1 1 0;
+  }
+
+  .project-copy h3 {
+    margin-bottom: 0.35rem;
+    line-height: 1.28;
+  }
+
+  .project-meta :global(.md-output) {
+    line-height: 1.28;
+  }
+
+  .project-meta :global(.md-output p) {
+    margin-bottom: 0.35rem;
   }
 
   .project-media {

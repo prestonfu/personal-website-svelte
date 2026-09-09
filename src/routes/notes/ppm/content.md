@@ -77,3 +77,17 @@ We’re very excited about this new space of methods that bridge imitation learn
 ### Acknowledgements
 
 I'd like to thank [Aviral](https://aviralkumar2907.github.io/), [Kevin](https://kvfrans.com/), and [Oleg](https://olehrybkin.com/) for their helpful feedback on this post.
+
+### Citation
+
+```bibtex
+@misc{fu2026longhorizonlanguagemodelreinforcement,
+      title={Long-Horizon Language Model Reinforcement Learning via Progressive Point Matching}, 
+      author={Preston Fu and Kevin Frans and Oleh Rybkin and Sergey Levine and Aviral Kumar},
+      year={2026},
+      eprint={2609.07303},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2609.07303}, 
+}
+```

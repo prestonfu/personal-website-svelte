@@ -16,6 +16,6 @@
   />
 </svelte:head>
 
-<article class="mx-auto max-w-[800px] px-4 sm:px-6">
+<article class="mx-auto max-w-[800px] px-8 sm:px-6">
   <ArticleMarkdown source={content} />
 </article>

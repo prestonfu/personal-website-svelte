@@ -161,7 +161,8 @@
 
 <style lang="postcss">
   .article-markdown {
-    @apply text-[1.1rem] leading-7 text-neutral-700;
+    @apply text-[1.1rem] leading-7;
+    color: var(--color-text);
     font-family: "IBM Plex Sans Article", "IBM Plex Sans", sans-serif;
   }
 
@@ -175,11 +176,14 @@
   }
 
   .article-markdown :global(h1 + p) {
-    @apply mx-auto mb-14 max-w-[700px] text-center text-[17px] leading-7 text-neutral-600;
+    @apply mx-auto mb-14 max-w-[700px] text-center text-[17px] leading-7;
+    color: var(--color-text-muted);
   }
 
   .article-markdown :global(h1 + p a) {
-    @apply text-neutral-800 no-underline decoration-neutral-400 transition-colors;
+    @apply no-underline transition-colors;
+    color: var(--color-text);
+    text-decoration-color: var(--color-link-decoration);
   }
 
   .article-markdown :global(h1 + p a:hover) {
@@ -196,6 +200,10 @@
 
   .article-markdown :global(p) {
     @apply mb-4;
+  }
+
+  .article-markdown > :global(:last-child) {
+    margin-bottom: 0;
   }
 
   .article-markdown :global(ul),
@@ -216,7 +224,8 @@
   }
 
   .article-markdown :global(a) {
-    @apply underline decoration-neutral-400 underline-offset-[3px] transition-colors;
+    @apply underline underline-offset-[3px] transition-colors;
+    text-decoration-color: var(--color-link-decoration);
   }
 
   .article-markdown :global(a:hover) {
@@ -250,8 +259,10 @@
   }
 
   .article-markdown :global(.footnote-popover) {
-    @apply invisible absolute bottom-[calc(100%+0.55rem)] left-1/2 z-30 max-w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 rounded border border-neutral-200 bg-white px-3 py-2 text-left text-base font-normal leading-6 text-neutral-700 opacity-0 transition;
+    @apply invisible absolute bottom-[calc(100%+0.55rem)] left-1/2 z-30 max-w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 rounded border bg-white px-3 py-2 text-left text-base font-normal leading-6 opacity-0 transition;
     --tw-translate-x: calc(-50% + var(--footnote-popover-offset));
+    border-color: var(--color-rule);
+    color: var(--color-text);
     width: max-content;
     white-space: normal;
   }
@@ -292,7 +303,8 @@
   }
 
   .article-markdown :global(figcaption) {
-    @apply mx-auto mt-3 max-w-[680px] text-left text-sm leading-5 text-neutral-500;
+    @apply mx-auto mt-3 max-w-[680px] text-left text-sm leading-5;
+    color: var(--color-text-subtle);
     width: fit-content;
   }
 

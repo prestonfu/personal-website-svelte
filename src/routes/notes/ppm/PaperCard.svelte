@@ -6,7 +6,7 @@
     />
   </div>
 
-  <div class="min-w-0">
+  <div class="paper-copy">
     <a
       href="https://arxiv.org/abs/2609.07303"
       class="paper-title"
@@ -16,7 +16,7 @@
       Long-Horizon Language Model Reinforcement Learning via Progressive Point
       Matching
     </a>
-    <div class="mb-3 text-sm leading-5 text-neutral-700">
+    <div class="paper-authors mb-3 text-sm leading-5">
       <a href="/" class="author-link">Preston Fu</a>*,
       <a
         href="https://kvfrans.com/"
@@ -62,14 +62,22 @@
 
 <style lang="postcss">
   .paper-card {
-    @apply mb-14 grid w-full grid-cols-[96px,minmax(0,1fr)] items-center gap-4 p-3 sm:grid-cols-[128px,minmax(0,1fr)] sm:p-4;
+    @apply mb-5 flex w-full items-start p-3 sm:p-4;
+    column-gap: 0.75rem;
     background: #d6f0e0;
     user-select: none;
     -webkit-user-select: none;
   }
 
+  .paper-copy {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+
   .thumbnail {
     @apply aspect-square overflow-hidden bg-white;
+    flex: 0 0 auto;
+    width: clamp(3.5rem, 17vw, 6.25rem);
   }
 
   .thumbnail img {
@@ -88,10 +96,27 @@
   }
 
   .paper-title {
-    @apply mb-2 block text-[17px] font-medium leading-6 text-black no-underline decoration-neutral-600 underline-offset-[3px] hover:underline;
+    @apply mb-2 block text-[17px] font-medium leading-6 text-black no-underline underline-offset-[3px] hover:underline;
+    text-decoration-color: var(--color-link-decoration);
+  }
+
+  .paper-authors {
+    color: var(--color-text);
   }
 
   .author-link {
-    @apply text-neutral-700 no-underline decoration-neutral-500 underline-offset-[3px] hover:text-black hover:underline;
+    @apply no-underline underline-offset-[3px] hover:text-black hover:underline;
+    color: var(--color-text);
+    text-decoration-color: var(--color-link-decoration);
+  }
+
+  @media (min-width: 600px) {
+    .paper-card {
+      column-gap: 1.25rem;
+    }
+
+    .thumbnail {
+      width: 8.75rem;
+    }
   }
 </style>
