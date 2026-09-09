@@ -25,7 +25,7 @@
 >
   <a href="/" class="mb-8">
     <div class="flex items-center">
-      <h1 class="font-bold text-black text-2xl">
+      <h1 class="type-page-title font-bold text-black">
         Preston Fu
         {#if pageTitle}
           <span class="page-title">
@@ -51,7 +51,7 @@
 
 <style lang="postcss">
   nav {
-    @apply flex items-start text-neutral-500 justify-end space-x-6 text-lg py-0.5;
+    @apply flex items-start text-neutral-500 justify-end space-x-6 text-md py-0.5;
   }
 
   .page-title {
@@ -60,7 +60,7 @@
 
   @media (max-width: 580px) {
     .page-title {
-      @apply block text-xl;
+      @apply block text-lg;
     }
 
     .page-title :first-child {

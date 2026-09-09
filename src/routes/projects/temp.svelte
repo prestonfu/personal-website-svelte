@@ -64,19 +64,19 @@
 <section class="layout-md py-12">
   <h2 class="heading2">Open Source</h2>
 
-  <p class="text-lg mb-4">
+  <p class="type-body-large mb-4">
     I view building software in the open as a mode of <em
-      class="font-serif text-[110%] leading-[100%]">creative exploration</em
+      class="font-serif leading-[100%]">creative exploration</em
     >. It lets me quickly act on inspiration, delve into new topics, and make
     tools that improve people's lives.
   </p>
 
-  <p class="text-lg mb-4">
+  <p class="type-body-large mb-4">
     You'll see that I particularly like programming languages, distributed
     systems, machine learning, computer graphics, music, and art.
   </p>
 
-  <p class="text-lg">
+  <p class="type-body-large">
     If you find something interesting,
     <a class="link" href="mailto:ekzhang1@gmail.com?subject=Software%20Projects"
       >let me know</a

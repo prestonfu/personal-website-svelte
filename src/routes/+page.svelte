@@ -20,6 +20,25 @@
     label: string;
   };
 
+  type ContactLink = {
+    label: string;
+    href?: string;
+    copyText?: string;
+  };
+
+  type CopyParticle = {
+    id: number;
+    x: number;
+    y: number;
+    dx: number;
+    dy: number;
+    rotation: number;
+    scale: number;
+    duration: number;
+  };
+
+  const emailAddress = "prestonf@cs.washington.edu";
+
   const projects = import.meta.glob("../projects/*.md", {
     eager: true,
   }) as Record<string, any>;
@@ -29,8 +48,8 @@
     { id: "writing", label: "Writing" },
   ];
 
-  const contactLinks = [
-    { label: "email", href: "mailto:prestonf@cs.washington.edu" },
+  const contactLinks: ContactLink[] = [
+    { label: "email", copyText: emailAddress },
     {
       label: "scholar",
       href: "https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=VjtRFvEAAAAJ",
@@ -77,11 +96,15 @@
   let bottomHoldTimer: ReturnType<typeof setTimeout> | null = null;
   let railEasterResetTimer: ReturnType<typeof setTimeout> | null = null;
   let railEasterState: "idle" | "active" | "reversing" = "idle";
-  let railEasterRequiresBottomExit = false;
   let railUsesSlider = true;
+  let sliderLanded = false;
+  let copyParticleId = 0;
+  let copyParticles: CopyParticle[] = [];
+  let copyParticleTimers: ReturnType<typeof setTimeout>[] = [];
 
   const compactRailQuery = "(max-width: 820px)";
-  const railEasterHoldMs = 5000;
+  const railEasterScrollableHoldMs = 5000;
+  const railEasterContainedHoldMs = 5000;
   const railEasterAnimationMs = 200;
 
   $: railRungGap =
@@ -126,11 +149,81 @@
     railEasterResetTimer = null;
   }
 
+  function clearCopyParticleTimers() {
+    for (const timer of copyParticleTimers) {
+      clearTimeout(timer);
+    }
+    copyParticleTimers = [];
+  }
+
+  async function copyText(text: string) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch {
+        // Fall back below when the Clipboard API is present but unavailable.
+      }
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.top = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
+  }
+
+  function showCopyParticle(originX: number, originY: number) {
+    copyParticleId += 1;
+    const direction = Math.random() < 0.5 ? -1 : 1;
+    const dx = direction * (15 + Math.random() * 27);
+    const dy = -(17 + Math.random() * 21);
+
+    const particle: CopyParticle = {
+      id: copyParticleId,
+      x: originX,
+      y: originY,
+      dx: Math.round(dx),
+      dy: Math.round(dy),
+      rotation: Math.round(-42 + Math.random() * 84),
+      scale: 0.92 + Math.random() * 0.16,
+      duration: 574 + Math.round(Math.random() * 154),
+    };
+
+    copyParticles = [...copyParticles, particle];
+
+    const timer = setTimeout(() => {
+      copyParticles = copyParticles.filter((item) => item.id !== particle.id);
+      copyParticleTimers = copyParticleTimers.filter((item) => item !== timer);
+    }, particle.duration);
+
+    copyParticleTimers = [...copyParticleTimers, timer];
+  }
+
+  async function handleContactClick(event: MouseEvent, link: ContactLink) {
+    if (!link.copyText) return;
+
+    event.preventDefault();
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    showCopyParticle(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+    try {
+      await copyText(link.copyText);
+    } catch {
+      if (link.href) {
+        window.location.href = link.href;
+      }
+    }
+  }
+
   function disableRailEaster() {
     clearBottomHoldTimer();
     clearRailEasterResetTimer();
     railEasterState = "idle";
-    railEasterRequiresBottomExit = false;
   }
 
   function updateRailMode() {
@@ -143,17 +236,47 @@
     }
   }
 
+  function isPageScrollable() {
+    if (!browser) return false;
+
+    const page = document.documentElement;
+    return page.scrollHeight > window.innerHeight + 2;
+  }
+
   function isAtPageBottom() {
     if (!browser) return false;
 
     const page = document.documentElement;
+    if (!isPageScrollable()) return true;
+
     return window.scrollY + window.innerHeight >= page.scrollHeight - 2;
+  }
+
+  function hideRailSliderAtStart() {
+    activeIndex = null;
+    sliderTop = -14;
+    sliderOpacity = 0;
+    sliderLanded = false;
+  }
+
+  function setRailSliderToWriting() {
+    const lastIndex = navItems.length - 1;
+    sliderTop = markerPositions[lastIndex] ?? sliderTop;
+    sliderOpacity = 1;
+    sliderLanded = true;
+  }
+
+  function getRailEasterHoldMs() {
+    return isPageScrollable()
+      ? railEasterScrollableHoldMs
+      : railEasterContainedHoldMs;
   }
 
   function activateRailEaster() {
     if (!railUsesSlider) return;
 
     clearRailEasterResetTimer();
+    setRailSliderToWriting();
     railEasterState = "active";
   }
 
@@ -165,6 +288,11 @@
     railEasterResetTimer = setTimeout(() => {
       if (railEasterState === "reversing") {
         railEasterState = "idle";
+        if (!isPageScrollable()) {
+          hideRailSliderAtStart();
+        } else {
+          updateSliderFromScroll();
+        }
       }
     }, railEasterAnimationMs);
   }
@@ -179,13 +307,7 @@
 
     if (!atBottom) {
       clearBottomHoldTimer();
-      railEasterRequiresBottomExit = false;
       reverseRailEaster();
-      return;
-    }
-
-    if (railEasterRequiresBottomExit) {
-      clearBottomHoldTimer();
       return;
     }
 
@@ -194,15 +316,14 @@
 
     bottomHoldTimer = setTimeout(() => {
       bottomHoldTimer = null;
-      if (isAtPageBottom() && !railEasterRequiresBottomExit) {
+      if (isAtPageBottom()) {
         activateRailEaster();
       }
-    }, railEasterHoldMs);
+    }, getRailEasterHoldMs());
   }
 
   function dismissRailEaster() {
     clearBottomHoldTimer();
-    railEasterRequiresBottomExit = isAtPageBottom();
     reverseRailEaster();
   }
 
@@ -227,6 +348,16 @@
   function updateSliderFromScroll() {
     if (!browser || markerPositions.length !== navItems.length) return;
 
+    const lastIndex = navItems.length - 1;
+
+    if (railEasterState === "active" || railEasterState === "reversing") {
+      sliderTop = markerPositions[lastIndex] ?? sliderTop;
+      sliderOpacity = 1;
+      sliderLanded = true;
+      activeIndex = isPageScrollable() && isAtPageBottom() ? lastIndex : null;
+      return;
+    }
+
     if (
       railUsesSlider &&
       programmaticTargetIndex !== null &&
@@ -235,6 +366,7 @@
       activeIndex = programmaticTargetIndex;
       sliderTop = markerPositions[programmaticTargetIndex] ?? sliderTop;
       sliderOpacity = 1;
+      sliderLanded = true;
       return;
     }
 
@@ -247,6 +379,29 @@
     const activationOffset = window.innerHeight * 0.3;
     const activationY = window.scrollY + activationOffset;
 
+    if (!isPageScrollable()) {
+      hideRailSliderAtStart();
+      return;
+    }
+
+    if (window.scrollY <= 1) {
+      hideRailSliderAtStart();
+      return;
+    }
+
+    if (isAtPageBottom()) {
+      activeIndex = lastIndex;
+      if (railUsesSlider) {
+        sliderTop = markerPositions[lastIndex] ?? sliderTop;
+        sliderOpacity = 1;
+        sliderLanded = true;
+      } else {
+        sliderOpacity = 0;
+        sliderLanded = false;
+      }
+      return;
+    }
+
     if (!railUsesSlider) {
       let simpleIndex = 0;
       for (let i = 0; i < sectionTops.length; i += 1) {
@@ -257,6 +412,7 @@
 
       activeIndex = simpleIndex;
       sliderOpacity = 0;
+      sliderLanded = false;
       return;
     }
 
@@ -271,6 +427,7 @@
       activeIndex = null;
       sliderTop = nextSliderTop;
       sliderOpacity = nextSliderTop >= 0 ? 1 : 0;
+      sliderLanded = false;
       return;
     }
 
@@ -285,6 +442,7 @@
     if (nextIndex !== null) {
       sliderTop = markerPositions[nextIndex] ?? sliderTop;
       sliderOpacity = 1;
+      sliderLanded = true;
     }
   }
 
@@ -298,6 +456,8 @@
 
   function handleNavClick(event: MouseEvent, item: NavItem, index: number) {
     event.preventDefault();
+    const shouldPreserveEasterBase = railEasterState !== "idle";
+
     if (railUsesSlider) {
       dismissRailEaster();
     } else {
@@ -305,11 +465,15 @@
     }
     activeIndex = index;
     if (railUsesSlider) {
-      sliderTop = markerPositions[index] ?? sliderTop;
-      sliderOpacity = 1;
+      if (!shouldPreserveEasterBase) {
+        sliderTop = markerPositions[index] ?? sliderTop;
+        sliderOpacity = 1;
+        sliderLanded = true;
+      }
       programmaticTargetIndex = index;
     } else {
       sliderOpacity = 0;
+      sliderLanded = false;
       programmaticTargetIndex = null;
     }
     programmaticScrollUntil = performance.now() + 900;
@@ -360,6 +524,7 @@
       if (frame) cancelAnimationFrame(frame);
       clearBottomHoldTimer();
       clearRailEasterResetTimer();
+      clearCopyParticleTimers();
     };
   });
 </script>
@@ -370,14 +535,16 @@
   <aside class="side" aria-label="Section navigation">
     <a href="/" class="name" aria-label="Preston Fu home">Preston Fu</a>
     <nav class="rail" bind:this={railEl}>
-      <span
-        class="rail-slider"
-        class:landed={activeIndex !== null}
-        class:easter-active={railEasterState === "active"}
-        class:easter-reversing={railEasterState === "reversing"}
-        style={`top: ${sliderTop}px; opacity: ${sliderOpacity}; --rail-easter-drop: ${railEasterDrop}px`}
-        aria-hidden="true"
-      />
+      {#if railUsesSlider}
+        <span
+          class="rail-slider"
+          class:landed={sliderLanded}
+          class:easter-active={railEasterState === "active"}
+          class:easter-reversing={railEasterState === "reversing"}
+          style={`top: ${sliderTop}px; opacity: ${sliderOpacity}; --rail-easter-drop: ${railEasterDrop}px`}
+          aria-hidden="true"
+        />
+      {/if}
       {#each navItems as item, index (item.id)}
         <a
           class="rail-link"
@@ -389,15 +556,17 @@
           <span>{item.label}</span>
         </a>
       {/each}
-      <span
-        class="rail-easter-text"
-        class:easter-active={railEasterState === "active"}
-        class:easter-reversing={railEasterState === "reversing"}
-        style={`top: ${railEasterTextTop}px; --rail-easter-drop: ${railEasterDrop}px`}
-        aria-hidden="true"
-      >
-        Anything interest you? Let's chat! :)
-      </span>
+      {#if railUsesSlider}
+        <span
+          class="rail-easter-text"
+          class:easter-active={railEasterState === "active"}
+          class:easter-reversing={railEasterState === "reversing"}
+          style={`top: ${railEasterTextTop}px; --rail-easter-drop: ${railEasterDrop}px`}
+          aria-hidden="true"
+        >
+          Anything interest you? Let's chat! :)
+        </span>
+      {/if}
     </nav>
   </aside>
 
@@ -479,17 +648,48 @@
 
     <section class="contact" aria-label="Contact">
       {#each contactLinks as link}
-        <a
-          class="contact-link"
-          href={link.href}
-          target={isExternal(link.href) ? "_blank" : undefined}
-          rel={isExternal(link.href) ? "noreferrer" : undefined}
-        >
-          {link.label}
-        </a>
+        {#if link.copyText}
+          <button
+            type="button"
+            class="contact-link"
+            on:click={(event) => handleContactClick(event, link)}
+          >
+            {link.label}
+          </button>
+        {:else if link.href}
+          <a
+            class="contact-link"
+            href={link.href}
+            target={isExternal(link.href) ? "_blank" : undefined}
+            rel={isExternal(link.href) ? "noreferrer" : undefined}
+          >
+            {link.label}
+          </a>
+        {/if}
       {/each}
     </section>
   </div>
+</div>
+
+<div class="copy-particle-layer" aria-hidden="true">
+  {#each copyParticles as particle (particle.id)}
+    <span
+      class="copy-particle"
+      style={`left: ${particle.x}px; top: ${particle.y}px; --copy-x: ${particle.dx}px; --copy-y: ${particle.dy}px; --copy-rotate: ${particle.rotation}deg; --copy-scale: ${particle.scale}; --copy-duration: ${particle.duration}ms`}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+      </svg>
+    </span>
+  {/each}
 </div>
 
 <style lang="postcss">
@@ -516,7 +716,7 @@
     padding-right: 0.35rem;
     background: #fff;
     color: #000;
-    font-size: 1.5rem;
+    @apply text-xl;
     font-weight: 700;
     line-height: 1.1;
   }
@@ -549,7 +749,7 @@
     width: max-content;
     max-width: 100%;
     color: var(--color-text-muted);
-    font-size: 1.02rem;
+    @apply text-base;
     line-height: 1.2;
     transform: translateY(-50%);
     transition: color 140ms ease;
@@ -615,7 +815,7 @@
     width: max-content;
     max-width: 12rem;
     color: #000;
-    font-size: 1.02rem;
+    @apply text-base;
     line-height: 1.2;
     opacity: 0;
     pointer-events: none;
@@ -680,7 +880,7 @@
 
   .content {
     min-width: 0;
-    font-size: 1.08rem;
+    @apply text-md;
     line-height: 1.55;
   }
 
@@ -706,7 +906,7 @@
     margin-bottom: 1.2rem;
     color: var(--color-text-muted);
     font-family: "Newsreader Italics", serif;
-    font-size: 1.35rem;
+    @apply text-lg;
     font-weight: 400;
     line-height: 1;
   }
@@ -742,7 +942,7 @@
   .writing-date {
     padding-top: 0.1rem;
     color: var(--color-text-subtle);
-    font-size: 0.92rem;
+    @apply text-sm;
     line-height: 1.35;
     white-space: nowrap;
   }
@@ -768,7 +968,7 @@
 
   .writing-summary {
     color: var(--color-text-muted);
-    font-size: 0.98rem;
+    @apply text-base;
     line-height: 1.36;
   }
 
@@ -780,9 +980,15 @@
   }
 
   .contact-link {
+    appearance: none;
+    display: inline-block;
+    border: 0;
+    background: transparent;
+    font: inherit;
     padding: 0.35rem 0.7rem;
     margin-left: -0.7rem;
     color: #000;
+    cursor: pointer;
     transition:
       background-color 140ms ease,
       color 140ms ease;
@@ -790,6 +996,62 @@
 
   .contact-link:hover {
     background: var(--color-surface-hover);
+  }
+
+  .copy-particle-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .copy-particle {
+    position: fixed;
+    color: var(--color-text-muted);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+    animation:
+      copy-particle-float var(--copy-duration) ease-out forwards,
+      copy-particle-fade var(--copy-duration) linear forwards;
+    filter: drop-shadow(0 0.2rem 0.45rem rgba(0, 0, 0, 0.1));
+    will-change: transform, opacity;
+  }
+
+  .copy-particle svg {
+    display: block;
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  @keyframes copy-particle-float {
+    0% {
+      transform: translate(-50%, -50%) scale(0.82) rotate(0deg);
+    }
+
+    100% {
+      transform: translate(calc(-50% + var(--copy-x)), calc(-50% + var(--copy-y)))
+        scale(var(--copy-scale)) rotate(var(--copy-rotate));
+    }
+  }
+
+  @keyframes copy-particle-fade {
+    0% {
+      opacity: 0;
+    }
+
+    12% {
+      opacity: 0.95;
+    }
+
+    58% {
+      opacity: 0.86;
+    }
+
+    100% {
+      opacity: 0;
+    }
   }
 
   @media (max-width: 820px) {
@@ -809,7 +1071,7 @@
     }
 
     .name {
-      font-size: 1.5rem;
+      @apply text-xl;
     }
 
     .rail {
@@ -830,7 +1092,7 @@
       position: absolute;
       grid-template-columns: 0.625rem minmax(0, auto);
       column-gap: 0.5rem;
-      font-size: 1.02rem;
+      @apply text-base;
       transform: translateY(-50%);
     }
 
@@ -852,7 +1114,7 @@
     }
 
     .content {
-      font-size: 1rem;
+      @apply text-base;
       line-height: 1.48;
     }
 
@@ -864,7 +1126,7 @@
 
     .section-heading {
       margin-bottom: 1rem;
-      font-size: 1.28rem;
+      @apply text-lg;
     }
 
     .research-list {
@@ -879,7 +1141,7 @@
     }
 
     .writing-date {
-      font-size: 0.84rem;
+      @apply text-xs;
     }
   }
 
@@ -891,11 +1153,11 @@
     }
 
     .name {
-      font-size: 1.35rem;
+      @apply text-lg;
     }
 
     .rail-link {
-      font-size: 0.94rem;
+      @apply text-sm;
     }
   }
 </style>

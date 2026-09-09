@@ -23,7 +23,7 @@
       rel={item.newTab === false ? undefined : "noreferrer"}
     >
       <div class="flex flex-col sm:flex-row sm:items-end mb-1.5">
-        <div class="text-lg text-black">
+        <div class="type-body-large text-black">
           {item.title}
           {#if item.newTab !== false}
             <ArrowUpRight size={18} class="inline text-neutral-400" />
@@ -33,7 +33,7 @@
           {formatTime("%B %Y", item.date)}
         </div>
       </div>
-      <div class="text-lg leading-snug font-serif">
+      <div class="type-body-large leading-snug font-serif">
         {item.summary}
       </div>
     </a>

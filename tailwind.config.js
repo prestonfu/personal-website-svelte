@@ -8,10 +8,13 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        sm: ["0.95rem", { lineHeight: "1.3rem" }],
-        base: ["1rem", { lineHeight: "1.3rem" }],
-        lg: ["1.05rem", { lineHeight: "1.6rem" }],
-        xl: ["1.2rem", { lineHeight: "1.5rem" }],
+        xs: ["0.875rem", { lineHeight: "1.25rem" }],
+        sm: ["0.9375rem", { lineHeight: "1.35rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        md: ["1.0625rem", { lineHeight: "1.6rem" }],
+        lg: ["1.25rem", { lineHeight: "1.55rem" }],
+        xl: ["1.5rem", { lineHeight: "1.2" }],
+        "2xl": ["1.875rem", { lineHeight: "1.15" }],
       },
       colors: {
         mint: "#f2fcf8",

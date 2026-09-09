@@ -55,7 +55,7 @@
   }
 
   .md-output :global(code) {
-    @apply text-[95%];
+    @apply text-sm;
   }
 
   .md-output.plain-first-paragraph-links :global(p:first-child a) {

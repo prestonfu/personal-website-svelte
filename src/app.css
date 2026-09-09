@@ -91,7 +91,31 @@
   }
 
   .heading2 {
-    @apply text-black text-xl font-semibold mb-4;
+    @apply text-lg text-black font-semibold mb-4;
+  }
+
+  .type-caption {
+    @apply text-sm;
+  }
+
+  .type-body {
+    @apply text-base;
+  }
+
+  .type-body-large {
+    @apply text-md;
+  }
+
+  .type-section-heading {
+    @apply text-lg;
+  }
+
+  .type-page-title {
+    @apply text-xl;
+  }
+
+  .type-article-title {
+    @apply text-2xl;
   }
 }
 

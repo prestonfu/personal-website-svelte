@@ -126,17 +126,17 @@
     </div>
     <div class="project-copy">
       <!-- Title -->
-      <h3 class="text-black text-lg font-semibold mb-2">
+      <h3 class="type-body-large text-black font-semibold mb-2">
         <span class="mr-1">
           <a class="link-no-underline" href={data.link} target="_blank"
             >{data.title}</a
           >
         </span>
-        <!-- <small class="whitespace-nowrap text-neutral-500 text-base font-normal">
+        <!-- <small class="whitespace-nowrap text-neutral-500 type-body font-normal">
           {formatTime("%b %Y", data.date)}
         </small> -->
       </h3>
-      <!-- <p class="text-lg font-light mb-3">{data.lead}</p> -->
+      <!-- <p class="type-body-large font-light mb-3">{data.lead}</p> -->
       <div class="project-meta text-sm">
         <Markdown
           source={data.content}

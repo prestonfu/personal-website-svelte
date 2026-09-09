@@ -222,7 +222,7 @@
 
 <style lang="postcss">
   .article-markdown {
-    @apply text-[1.1rem] leading-7;
+    @apply text-md leading-7;
     color: var(--color-text);
     font-family: "IBM Plex Sans Article", "IBM Plex Sans", sans-serif;
   }
@@ -233,11 +233,11 @@
   }
 
   .article-markdown :global(h1) {
-    @apply mx-auto mb-2 mt-0 max-w-[720px] text-center text-3xl font-medium leading-tight text-black;
+    @apply mx-auto mb-2 mt-0 max-w-[720px] text-center text-2xl font-medium leading-tight text-black;
   }
 
   .article-markdown :global(h1 + p) {
-    @apply mx-auto mb-14 max-w-[700px] text-center text-[17px] leading-7;
+    @apply mx-auto mb-14 max-w-[700px] text-center text-md leading-7;
     color: var(--color-text-muted);
   }
 
@@ -252,11 +252,11 @@
   }
 
   .article-markdown :global(h2) {
-    @apply mb-4 mt-14 text-[1.45rem] font-medium leading-tight text-black;
+    @apply mb-4 mt-14 text-xl font-medium leading-tight text-black;
   }
 
   .article-markdown :global(h3) {
-    @apply mb-3 mt-10 text-[1.3rem] font-medium leading-snug text-black;
+    @apply mb-3 mt-10 text-lg font-medium leading-snug text-black;
   }
 
   .article-markdown :global(p) {
@@ -429,7 +429,7 @@
   }
 
   .article-markdown :global(code) {
-    @apply rounded bg-neutral-100 px-1 py-0.5 text-[0.86em];
+    @apply rounded bg-neutral-100 px-1 py-0.5 text-sm;
   }
 
   .article-markdown :global(pre code) {

@@ -86,7 +86,7 @@
   }
 
   .resource-button {
-    @apply px-2 py-1 text-[15px] leading-4 text-white no-underline transition-colors;
+    @apply px-2 py-1 text-sm leading-4 text-white no-underline transition-colors;
     background: #30b265;
   }
 
@@ -96,7 +96,7 @@
   }
 
   .paper-title {
-    @apply mb-2 block text-[17px] font-medium leading-6 text-black no-underline underline-offset-[3px] hover:underline;
+    @apply mb-2 block text-md font-medium leading-6 text-black no-underline underline-offset-[3px] hover:underline;
     text-decoration-color: var(--color-link-decoration);
   }
 

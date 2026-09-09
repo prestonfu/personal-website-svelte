@@ -1,4 +1,4 @@
-<footer class="layout-md text-lg mt-20 flex flex-col">
+<footer class="layout-md type-body-large mt-20 flex flex-col">
   <div class="row">
     <span>GitHub</span>
     <hr />
