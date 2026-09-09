@@ -81,9 +81,12 @@
 </script>
 
 <script lang="ts">
+  import { afterUpdate, onMount } from "svelte";
   import PaperCard from "./PaperCard.svelte";
 
   export let source: string;
+
+  let articleEl: HTMLElement;
 
   const cardMarker = "<!-- ppm-resource-card -->";
   const mobileFootnoteGap = 8;
@@ -135,6 +138,63 @@
     footnote.style.setProperty("--footnote-popover-top", `${top}px`);
   }
 
+  function makeBibtexCopyable(root: HTMLElement) {
+    const copyIcon = `
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+      </svg>`;
+    const checkIcon = `
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6 9 17l-5-5"></path>
+      </svg>`;
+    const blocks = Array.from(
+      root.querySelectorAll<HTMLElement>('pre > code[class~="language-bibtex"]'),
+    );
+
+    for (const code of blocks) {
+      const pre = code.parentElement as HTMLElement | null;
+      if (!pre || pre.dataset.copyable) continue;
+
+      pre.dataset.copyable = "true";
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.innerHTML = copyIcon;
+      button.className = "copy-btn";
+      button.setAttribute("aria-label", "Copy BibTeX");
+      button.title = "Copy BibTeX";
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(code.innerText);
+          button.innerHTML = checkIcon;
+          button.setAttribute("aria-label", "Copied BibTeX");
+          button.title = "Copied";
+        } catch {
+          button.textContent = "Error";
+          button.setAttribute("aria-label", "Copy failed");
+          button.title = "Copy failed";
+        }
+
+        setTimeout(() => {
+          button.innerHTML = copyIcon;
+          button.setAttribute("aria-label", "Copy BibTeX");
+          button.title = "Copy BibTeX";
+        }, 500);
+      });
+
+      pre.appendChild(button);
+    }
+  }
+
+  onMount(() => {
+    makeBibtexCopyable(articleEl);
+  });
+
+  afterUpdate(() => {
+    makeBibtexCopyable(articleEl);
+  });
+
   $: markerIndex = source.indexOf(cardMarker);
   $: beforeCard =
     markerIndex === -1 ? source : source.slice(0, markerIndex);
@@ -147,6 +207,7 @@
 </script>
 
 <div
+  bind:this={articleEl}
   class="article-markdown"
   on:pointerover={positionMobileFootnote}
   on:pointerdown={positionMobileFootnote}
@@ -334,6 +395,37 @@
 
   .article-markdown :global(pre) {
     @apply mb-6 overflow-x-auto bg-neutral-100 p-4 text-sm;
+  }
+
+  .article-markdown :global(pre[data-copyable]) {
+    position: relative;
+  }
+
+  .article-markdown :global(pre[data-copyable] .copy-btn) {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.55rem;
+    height: 1.55rem;
+    background: #f3f4f6;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .article-markdown :global(pre[data-copyable] .copy-btn svg) {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .article-markdown :global(pre[data-copyable] .copy-btn:hover) {
+    background: #e5e7eb;
   }
 
   .article-markdown :global(code) {

@@ -36,8 +36,7 @@
       href: "https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=VjtRFvEAAAAJ",
     },
     { label: "github", href: "https://github.com/prestonfu" },
-    { label: "twitter", href: "https://x.com/preston_fu" },
-    { label: "linkedin", href: "https://www.linkedin.com/in/preston-fu/" },
+    { label: "strava", href: "https://strava.app.link/wlebb9cWh6b" },
   ];
 
   function trimName(id: string) {
@@ -75,6 +74,23 @@
   let programmaticTargetIndex: number | null = null;
   let programmaticScrollUntil = 0;
   let frame = 0;
+  let bottomHoldTimer: ReturnType<typeof setTimeout> | null = null;
+  let railEasterResetTimer: ReturnType<typeof setTimeout> | null = null;
+  let railEasterState: "idle" | "active" | "reversing" = "idle";
+  let railEasterRequiresBottomExit = false;
+  let railUsesSlider = true;
+
+  const compactRailQuery = "(max-width: 820px)";
+  const railEasterHoldMs = 5000;
+  const railEasterAnimationMs = 200;
+
+  $: railRungGap =
+    markerPositions.length > 1
+      ? Math.abs(markerPositions[1] - markerPositions[0])
+      : 21.6;
+  $: railEasterDrop = railRungGap;
+  $: railEasterTextTop =
+    (markerPositions[1] ?? railRungGap * 2) + railEasterDrop + 0.6 * 16;
 
   function clamp(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
@@ -98,6 +114,98 @@
     };
   }
 
+  function clearBottomHoldTimer() {
+    if (!bottomHoldTimer) return;
+    clearTimeout(bottomHoldTimer);
+    bottomHoldTimer = null;
+  }
+
+  function clearRailEasterResetTimer() {
+    if (!railEasterResetTimer) return;
+    clearTimeout(railEasterResetTimer);
+    railEasterResetTimer = null;
+  }
+
+  function disableRailEaster() {
+    clearBottomHoldTimer();
+    clearRailEasterResetTimer();
+    railEasterState = "idle";
+    railEasterRequiresBottomExit = false;
+  }
+
+  function updateRailMode() {
+    if (!browser) return;
+
+    railUsesSlider = !window.matchMedia(compactRailQuery).matches;
+    if (!railUsesSlider) {
+      disableRailEaster();
+      sliderOpacity = 0;
+    }
+  }
+
+  function isAtPageBottom() {
+    if (!browser) return false;
+
+    const page = document.documentElement;
+    return window.scrollY + window.innerHeight >= page.scrollHeight - 2;
+  }
+
+  function activateRailEaster() {
+    if (!railUsesSlider) return;
+
+    clearRailEasterResetTimer();
+    railEasterState = "active";
+  }
+
+  function reverseRailEaster() {
+    if (!railUsesSlider || railEasterState !== "active") return;
+
+    clearRailEasterResetTimer();
+    railEasterState = "reversing";
+    railEasterResetTimer = setTimeout(() => {
+      if (railEasterState === "reversing") {
+        railEasterState = "idle";
+      }
+    }, railEasterAnimationMs);
+  }
+
+  function monitorBottomHold() {
+    if (!browser || !railUsesSlider) {
+      disableRailEaster();
+      return;
+    }
+
+    const atBottom = isAtPageBottom();
+
+    if (!atBottom) {
+      clearBottomHoldTimer();
+      railEasterRequiresBottomExit = false;
+      reverseRailEaster();
+      return;
+    }
+
+    if (railEasterRequiresBottomExit) {
+      clearBottomHoldTimer();
+      return;
+    }
+
+    if (railEasterState === "reversing") return;
+    if (railEasterState === "active" || bottomHoldTimer) return;
+
+    bottomHoldTimer = setTimeout(() => {
+      bottomHoldTimer = null;
+      if (isAtPageBottom() && !railEasterRequiresBottomExit) {
+        activateRailEaster();
+      }
+    }, railEasterHoldMs);
+  }
+
+  function dismissRailEaster() {
+    clearBottomHoldTimer();
+    railEasterRequiresBottomExit = isAtPageBottom();
+    reverseRailEaster();
+  }
+
   function updateMarkerPositions() {
     if (!browser || !railEl || markerRefs.length === 0) return;
 
@@ -110,10 +218,17 @@
     updateSliderFromScroll();
   }
 
+  function handleViewportChange() {
+    updateRailMode();
+    scheduleMeasure();
+    monitorBottomHold();
+  }
+
   function updateSliderFromScroll() {
     if (!browser || markerPositions.length !== navItems.length) return;
 
     if (
+      railUsesSlider &&
       programmaticTargetIndex !== null &&
       performance.now() < programmaticScrollUntil
     ) {
@@ -131,23 +246,31 @@
     });
     const activationOffset = window.innerHeight * 0.3;
     const activationY = window.scrollY + activationOffset;
-    const railStartsAtResearch = window.matchMedia("(max-width: 820px)").matches;
 
-    if (railStartsAtResearch && activationY < sectionTops[0]) {
-      activeIndex = 0;
-      sliderTop = markerPositions[0] ?? sliderTop;
-      sliderOpacity = 1;
+    if (!railUsesSlider) {
+      let simpleIndex = 0;
+      for (let i = 0; i < sectionTops.length; i += 1) {
+        if (activationY >= sectionTops[i]) {
+          simpleIndex = i;
+        }
+      }
+
+      activeIndex = simpleIndex;
+      sliderOpacity = 0;
       return;
     }
+
 
     if (activationY < sectionTops[0]) {
       const firstActivationScroll = Math.max(sectionTops[0] - activationOffset, 1);
       const progress = clamp(window.scrollY / firstActivationScroll, 0, 1);
       const spawnTop = -14;
+      const nextSliderTop =
+        spawnTop + ((markerPositions[0] ?? spawnTop) - spawnTop) * progress;
 
       activeIndex = null;
-      sliderTop = spawnTop + ((markerPositions[0] ?? spawnTop) - spawnTop) * progress;
-      sliderOpacity = progress > 0 ? 1 : 0;
+      sliderTop = nextSliderTop;
+      sliderOpacity = nextSliderTop >= 0 ? 1 : 0;
       return;
     }
 
@@ -175,10 +298,20 @@
 
   function handleNavClick(event: MouseEvent, item: NavItem, index: number) {
     event.preventDefault();
+    if (railUsesSlider) {
+      dismissRailEaster();
+    } else {
+      disableRailEaster();
+    }
     activeIndex = index;
-    sliderTop = markerPositions[index] ?? sliderTop;
-    sliderOpacity = 1;
-    programmaticTargetIndex = index;
+    if (railUsesSlider) {
+      sliderTop = markerPositions[index] ?? sliderTop;
+      sliderOpacity = 1;
+      programmaticTargetIndex = index;
+    } else {
+      sliderOpacity = 0;
+      programmaticTargetIndex = null;
+    }
     programmaticScrollUntil = performance.now() + 900;
     sectionRefs[item.id]?.scrollIntoView({ behavior: "smooth", block: "start" });
     history.replaceState(null, "", `#${item.id}`);
@@ -197,14 +330,16 @@
     let resizeObserver: ResizeObserver | null = null;
 
     tick().then(() => {
+      updateRailMode();
       updateMarkerPositions();
+      monitorBottomHold();
 
-      window.addEventListener("scroll", scheduleMeasure, { passive: true });
-      window.addEventListener("resize", scheduleMeasure);
-      window.addEventListener("load", scheduleMeasure);
+      window.addEventListener("scroll", handleViewportChange, { passive: true });
+      window.addEventListener("resize", handleViewportChange);
+      window.addEventListener("load", handleViewportChange);
 
       if ("ResizeObserver" in window) {
-        resizeObserver = new ResizeObserver(scheduleMeasure);
+        resizeObserver = new ResizeObserver(handleViewportChange);
         resizeObserver.observe(document.body);
       }
 
@@ -218,11 +353,13 @@
     });
 
     return () => {
-      window.removeEventListener("scroll", scheduleMeasure);
-      window.removeEventListener("resize", scheduleMeasure);
-      window.removeEventListener("load", scheduleMeasure);
+      window.removeEventListener("scroll", handleViewportChange);
+      window.removeEventListener("resize", handleViewportChange);
+      window.removeEventListener("load", handleViewportChange);
       resizeObserver?.disconnect();
       if (frame) cancelAnimationFrame(frame);
+      clearBottomHoldTimer();
+      clearRailEasterResetTimer();
     };
   });
 </script>
@@ -236,7 +373,9 @@
       <span
         class="rail-slider"
         class:landed={activeIndex !== null}
-        style={`top: ${sliderTop}px; opacity: ${sliderOpacity}`}
+        class:easter-active={railEasterState === "active"}
+        class:easter-reversing={railEasterState === "reversing"}
+        style={`top: ${sliderTop}px; opacity: ${sliderOpacity}; --rail-easter-drop: ${railEasterDrop}px`}
         aria-hidden="true"
       />
       {#each navItems as item, index (item.id)}
@@ -250,6 +389,15 @@
           <span>{item.label}</span>
         </a>
       {/each}
+      <span
+        class="rail-easter-text"
+        class:easter-active={railEasterState === "active"}
+        class:easter-reversing={railEasterState === "reversing"}
+        style={`top: ${railEasterTextTop}px; --rail-easter-drop: ${railEasterDrop}px`}
+        aria-hidden="true"
+      >
+        Anything interest you? Let's chat! :)
+      </span>
     </nav>
   </aside>
 
@@ -266,7 +414,7 @@
         via large-scale RL.
       </p>
       <p>
-        Previously, I was an undergrad at UC Berkeley advised by
+        Previously, I did my undergrad at UC Berkeley advised by
         <a
           class="link"
           href="https://people.eecs.berkeley.edu/~svlevine/"
@@ -443,13 +591,91 @@
     pointer-events: none;
     transition:
       top 220ms ease-out,
-      opacity 120ms ease,
+      opacity 200ms ease,
       background-color 120ms ease,
       border-color 120ms ease;
   }
 
   .rail-slider.landed {
     background: #000;
+  }
+
+  .rail-slider.easter-active {
+    animation: rail-easter-drop 200ms both;
+  }
+
+  .rail-slider.easter-reversing {
+    animation: rail-easter-rise 200ms both;
+  }
+
+  .rail-easter-text {
+    position: absolute;
+    z-index: 1;
+    left: 1.205rem;
+    width: max-content;
+    max-width: 12rem;
+    color: #000;
+    font-size: 1.02rem;
+    line-height: 1.2;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(-50% - var(--rail-easter-drop)));
+  }
+
+  .rail-easter-text.easter-active {
+    animation: rail-easter-text-drop 200ms both;
+  }
+
+  .rail-easter-text.easter-reversing {
+    animation: rail-easter-text-rise 200ms both;
+  }
+
+  @keyframes rail-easter-drop {
+    0% {
+      transform: translate(-50%, -50%);
+      animation-timing-function: cubic-bezier(0.45, 0, 1, 1);
+    }
+
+    100% {
+      transform: translate(-50%, calc(-50% + var(--rail-easter-drop)));
+    }
+  }
+
+  @keyframes rail-easter-rise {
+    0% {
+      transform: translate(-50%, calc(-50% + var(--rail-easter-drop)));
+      animation-timing-function: cubic-bezier(0, 0, 0.25, 1);
+    }
+
+    100% {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes rail-easter-text-drop {
+    0% {
+      opacity: 0;
+      transform: translateY(calc(-50% - var(--rail-easter-drop)));
+      animation-timing-function: cubic-bezier(0.45, 0, 1, 1);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+  }
+
+  @keyframes rail-easter-text-rise {
+    0% {
+      opacity: 1;
+      transform: translateY(-50%);
+      animation-timing-function: cubic-bezier(0, 0, 0.25, 1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(calc(-50% - var(--rail-easter-drop)));
+    }
   }
 
   .content {
@@ -606,6 +832,15 @@
       column-gap: 0.5rem;
       font-size: 1.02rem;
       transform: translateY(-50%);
+    }
+
+    .rail-slider,
+    .rail-easter-text {
+      display: none;
+    }
+
+    .rail-easter-text {
+      left: 1.125rem;
     }
 
     .rail-link:nth-of-type(1) {

@@ -82,12 +82,12 @@ I'd like to thank [Aviral](https://aviralkumar2907.github.io/), [Kevin](https://
 
 ```bibtex
 @misc{fu2026longhorizonlanguagemodelreinforcement,
-      title={Long-Horizon Language Model Reinforcement Learning via Progressive Point Matching}, 
+      title={Long-Horizon Language Model Reinforcement Learning via Progressive Point Matching},
       author={Preston Fu and Kevin Frans and Oleh Rybkin and Sergey Levine and Aviral Kumar},
       year={2026},
       eprint={2609.07303},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2609.07303}, 
+      url={https://arxiv.org/abs/2609.07303},
 }
 ```

@@ -2,8 +2,9 @@ research:
   - title: "Progressive Point Matching"
     date: 2026-09-01
     summary: >
-      Assigning partial credit to improve reinforcement learning for
-      long-horizon reasoning tasks.
+      How can we scalably train LLMs with RL toward long-horizon tasks?
+      We propose a simple dense credit assignment method that generalizes
+      imitation learning and standard outcome-level RL.
     link: /notes/ppm/
     newTab: false
 
@@ -15,16 +16,16 @@ research:
     link: https://value-scaling.github.io/
 
 courses:
-  - title: "CS 184: Computer Graphics and Imaging"
+  - title: "Berkeley CS 184: Computer Graphics and Imaging"
     date: 2024-05-19
     summary: >
       All things graphics: rasterization, filtering and sampling, geometry, 
       materials, light transport and image synthesis, cameras, physical
-      simulation, virtual reality, etc. (I was also a 
-      teaching assistant for this course!)
+      simulation, virtual reality, etc. (I was a teaching assistant for this course
+      and helped redesign lots of discussions!)
     link: /assets/pdf/CS184_Notes.pdf
 
-  - title: "CS 285: Deep Reinforcement Learning"
+  - title: "Berkeley CS 285: Deep Reinforcement Learning"
     date: 2023-12-15
     summary: >
       Graduate course on reinforcement learning, control, and deep learning.
