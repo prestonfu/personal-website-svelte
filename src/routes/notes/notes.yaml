@@ -1,4 +1,11 @@
 research:
+  - title: "Imitation Learning"
+    date: 2026-11-03
+    summary: >
+      Challenges and theoretical perspectives on inverse RL. Slides from
+      Abhishek Gupta's group meeting.
+    link: /assets/pdf/imitation-learning-slides.pdf
+
   - title: "Progressive Point Matching"
     date: 2026-09-01
     summary: >
