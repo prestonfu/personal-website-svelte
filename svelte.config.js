@@ -6,7 +6,7 @@ const config = {
   preprocess: [preprocess({ postcss: true })],
   kit: {
     adapter: adapter({
-      runtime: "nodejs20.x",
+      runtime: "nodejs22.x",
     }),
   },
 };
